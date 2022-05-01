@@ -38,20 +38,24 @@ if __name__ == '__main__':
         count += 1
         word=word.replace("\n", "")
         wr = WordReference('es', 'en')  # same as WordReference('esen')
-        res = wr.translate(word)["translations"][0]['entries']
+        try:
+            res = wr.translate(word)["translations"][0]['entries']
+        except:
+            continue
         trans_words = set()
 
         q_sentences = set()
         a_sentences = dict()
         num = 0
         for i in res:
-            num += 1
-            if num < 3:
-                if (i['to_word'][0]['meaning'] != 'translation unavailable') and (i['to_word'][0]['meaning'] != '-'):
+            if i['from_word']['source']==word or word+',' in i['from_word']['source']:
+                num += 1
+                if (i['to_word'][0]['meaning'] != 'translation unavailable') and (i['to_word'][0]['meaning'] != '-') and len(trans_words)<3:
                     trans_words.add(i['to_word'][0]['meaning'])
-                q_sentences.add(i['from_example'])
-            if i['to_example']:
-                a_sentences[i['from_example']] = i['to_example'][0]
+                if num < 3:
+                    q_sentences.add(i['from_example'])
+                if i['to_example']:
+                    a_sentences[i['from_example']] = i['to_example'][0]
         print(count)
         print(word)
         print(trans_words)
@@ -79,7 +83,5 @@ if __name__ == '__main__':
             fields=[str(count), word, q_sentences_str, trans_str, a_sentences_str])
         # print([word, q_sentences_str, trans_str, a_sentences_str])
         my_deck.add_note(my_note)
-        time.sleep(3)
-        if count==100:
-            break
+        time.sleep(1)
     genanki.Package(my_deck).write_to_file('output.apkg')
