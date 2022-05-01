@@ -65,7 +65,8 @@ if __name__ == '__main__':
         trans_str = trans_str[0:-2]
 
         for sen in q_sentences:
-            q_sentences_str = q_sentences_str + "<tr><td>" + sen + "</td></tr>"
+              if  isinstance(sen, str):
+                 q_sentences_str = q_sentences_str + "<tr><td>" + sen + "</td></tr>"
 
         q_sentences_str += "</table>"
         for key, value in a_sentences.items():
@@ -79,4 +80,6 @@ if __name__ == '__main__':
         # print([word, q_sentences_str, trans_str, a_sentences_str])
         my_deck.add_note(my_note)
         time.sleep(3)
+        if count==100:
+            break
     genanki.Package(my_deck).write_to_file('output.apkg')
