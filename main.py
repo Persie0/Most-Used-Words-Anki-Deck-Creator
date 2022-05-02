@@ -85,7 +85,8 @@ if __name__ == '__main__':
 
         q_sentences_str += "</table>"
         for key, value in a_sentences.items():
-            a_sentences_str = a_sentences_str + "<tr><td>" + key + "</td><td>" + value + "</td></tr>"
+            if isinstance(key, str)and isinstance(value, str):
+                a_sentences_str = a_sentences_str + "<tr><td>" + key + "</td><td>" + value + "</td></tr>"
 
         a_sentences_str += "</table>"
         my_note = genanki.Note(
