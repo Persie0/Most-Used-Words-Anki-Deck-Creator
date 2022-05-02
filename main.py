@@ -46,7 +46,6 @@ if __name__ == '__main__':
     )
     count = 0
     for word in lines:
-        count += 1
         word = word.replace("\n", "")
         wr = WordReference('es', 'en')  # same as WordReference('esen')
         try:
@@ -54,7 +53,7 @@ if __name__ == '__main__':
         except:
             continue
         trans_words = IndexedSet()
-
+        count += 1
         q_sentences = IndexedSet()
         a_sentences = dict()
         num = 0
