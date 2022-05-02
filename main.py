@@ -66,15 +66,15 @@ if __name__ == '__main__':
             for i in res:
                 num += 1
                 filter_add()
-        print(count)
-        print(word)
-        print(trans_words)
-        print("\n")
+        print(str(count)+'\r')
+        #print(word)
+        #print(trans_words)
+        #print("\n")
         q_sentences_str = "<table>"
         a_sentences_str = "<table>"
         trans_str = ""
         for w in trans_words:
-            trans_str = trans_str + w + ", "
+            trans_str = trans_str + w + "; "
 
         trans_str = trans_str[0:-2]
 
@@ -93,5 +93,5 @@ if __name__ == '__main__':
             fields=[str(count), word, q_sentences_str, trans_str, a_sentences_str])
         # print([word, q_sentences_str, trans_str, a_sentences_str])
         my_deck.add_note(my_note)
-        time.sleep(0.1)
+        #time.sleep(0.1)
     genanki.Package(my_deck).write_to_file('output.apkg')
