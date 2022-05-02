@@ -1,6 +1,7 @@
 from wrpy import WordReference
 import genanki
 import time
+import sys
 from boltons.setutils import IndexedSet
 
 def filter_add():
