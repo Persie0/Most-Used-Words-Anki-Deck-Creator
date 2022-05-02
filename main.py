@@ -66,7 +66,7 @@ if __name__ == '__main__':
             for i in res:
                 num += 1
                 filter_add()
-        print(str(count)+'\r')
+        print(str(count), end="\r")
         #print(word)
         #print(trans_words)
         #print("\n")
