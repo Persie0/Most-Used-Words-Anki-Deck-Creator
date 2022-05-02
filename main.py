@@ -15,7 +15,7 @@ def filter_add():
 
 
 if __name__ == '__main__':
-    with open('10000mostusedspanish.txt') as f:
+    with open('es_50k.txt') as f:
         lines = f.readlines()
 
     my_deck = genanki.Deck(
@@ -98,4 +98,6 @@ if __name__ == '__main__':
         time.sleep(0.1)
         if (count%1000)==0:
             print(str(count))
+        if (count%10000)==0:
+            break
     genanki.Package(my_deck).write_to_file('output.apkg')
