@@ -5,7 +5,11 @@ name: Python application
 
 on:
   workflow_dispatch:
-
+    inputs:
+      textfilename:
+        description: 'Name of your .txt file'
+        required: true 
+        type: string
 
 permissions:
   contents: read
