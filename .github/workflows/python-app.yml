@@ -15,8 +15,8 @@ on:
         required: true
         type: choice
         options:
-          - en
           - es
+          - en
       to:
         description: 'Language to which should be translated to'
         required: true
