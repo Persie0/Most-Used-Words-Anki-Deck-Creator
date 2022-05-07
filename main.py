@@ -4,6 +4,7 @@ import time
 import sys
 from boltons.setutils import IndexedSet
 
+
 def filter_add():
     if (i['to_word'][0]['meaning'] != 'translation unavailable') and (
             i['to_word'][0]['meaning'] != '-') and len(trans_words) < 3:
@@ -14,19 +15,18 @@ def filter_add():
         a_sentences[i['from_example']] = i['to_example'][0]
 
 
-if __name__ == '__main__':
-    with open('es_50k.txt') as f:
-        lines = f.readlines()
-
+def set_anki_stuff():
+    global my_deck, my_model
     my_deck = genanki.Deck(
-        deck_id=6969696969,
+        deck_id=3485385385,
         name='Spanish 10000')
     my_model = genanki.Model(
-        model_id=6969696969,
+        model_id=3485385385,
         name='Persie0 Model',
-        css=".card { font-family: arial; font-size: 3.6vw;text-align: center;color: black;background-color: "
-            "white;}.alts { font-size: 1.8vw;}.attrs { font-style: italic; font-size: 14px;}"
-            "table, th, td {border: 2px solid;  margin-left: auto; margin-right: auto; padding: 6px; } table {  border-collapse: collapse;  width: 100%;}",
+        css=".card { font-family: arial; font-size: 2em;text-align: center;color: black;background-color: "
+            "white;}.alts { font-size: 0.5em;}.attrs { font-style: italic; font-size: 14px;}"
+            "table, th, td {border: 2px solid;  margin-left: auto; margin-right: auto; padding: 6px; } table {  "
+            "border-collapse: collapse;  width: 100%;}",
         fields=[
             {'name': 'Index'},
             {'name': 'Question'},
@@ -37,14 +37,24 @@ if __name__ == '__main__':
         templates=[
             {
                 'name': 'Card 1',
-                'qfmt': "{{Question}}<br>{{#Question sentences}}<br /><span class=\"alts\">{{Question sentences}}</span>{"
+                'qfmt': "{{Question}}<br>{{#Question sentences}}<br /><span class=\"alts\">{{Question "
+                        "sentences}}</span>{ "
                         "{/Question sentences}}",
-                'afmt': '{{FrontSide}}<hr id="answer" />{{Answer}}<br>{{#Answer sentences and translations}}<br /><span '
+                'afmt': '{{FrontSide}}<hr id="answer" />{{Answer}}<br>{{#Answer sentences and translations}}<br '
+                        '/><span '
                         'class="alts">{{Answer sentences and translations}}</span>{{/Answer sentences and '
                         'translations}}<div style="display:none;"></div>',
             },
         ]
     )
+
+
+if __name__ == '__main__':
+    with open('es_50k.txt') as f:
+        lines = f.readlines()
+    my_deck = genanki.Deck()
+    my_model = genanki.Model()
+    set_anki_stuff()
     count = 0
     for word in lines:
         word = word.replace("\n", "")
@@ -66,11 +76,11 @@ if __name__ == '__main__':
             for i in res:
                 num += 1
                 filter_add()
-        #print(str(count))
-        #sys.stdout.write("\033[F")
-        #print(word)
-        #print(trans_words)
-        #print("\n")
+        # print(str(count))
+        # sys.stdout.write("\033[F")
+        # print(word)
+        # print(trans_words)
+        # print("\n")
         q_sentences_str = "<table>"
         a_sentences_str = "<table>"
         trans_str = ""
@@ -85,7 +95,7 @@ if __name__ == '__main__':
 
         q_sentences_str += "</table>"
         for key, value in a_sentences.items():
-            if isinstance(key, str)and isinstance(value, str):
+            if isinstance(key, str) and isinstance(value, str):
                 a_sentences_str = a_sentences_str + "<tr><td>" + key + "</td><td>" + value + "</td></tr>"
 
         a_sentences_str += "</table>"
@@ -96,8 +106,8 @@ if __name__ == '__main__':
         # print([word, q_sentences_str, trans_str, a_sentences_str])
         my_deck.add_note(my_note)
         time.sleep(0.1)
-        if (count%1000)==0:
+        if (count % 1000) == 0:
             print(str(count))
-        if (count%10000)==0:
-            break
+        # if (count%10000)==0:
+        #     break
     genanki.Package(my_deck).write_to_file('output.apkg')
