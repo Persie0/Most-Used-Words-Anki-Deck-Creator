@@ -52,9 +52,14 @@ def set_anki_stuff():
 
 
 if __name__ == '__main__':
-    fromLang = "es"
-    toLang = "en"
-    filename = '10000mostusedspanish.txt'
+    fromLang = sys.argv[2]
+    toLang = sys.argv[3]
+    filename = sys.argv[1]
+    if not filename.endswith(".txt"):
+        filename+=".txt"
+    # fromLang = "es"
+    # toLang = "en"
+    # filename = '10000mostusedspanish.txt'
     with open(filename) as f:
         lines = f.readlines()
     my_deck = genanki.Deck()

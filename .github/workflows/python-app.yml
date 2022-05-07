@@ -14,10 +14,16 @@ on:
         description: 'Language of words from given .txt file'
         required: true
         type: string
+        options:
+          - en
+          - es
       to:
         description: 'Language to which should be translated to'
         required: true
         type: string
+        options:
+          - en
+          - es
 
 permissions:
   contents: read
