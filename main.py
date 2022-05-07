@@ -139,7 +139,7 @@ if __name__ == '__main__':
         # print([word, q_sentences_str, trans_str, a_sentences_str])
         my_deck.add_note(my_note)
         time.sleep(0.1)
-        if (count % 1000) == 0:
+        if (count % 125) == 0:
             print(str(count))
         if numberOfWords != 0:
             if (count % numberOfWords) == 0:
