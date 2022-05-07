@@ -3,28 +3,31 @@ import genanki
 import time
 import sys
 from boltons.setutils import IndexedSet
+import palabras.core
 
 
-def filter_add():
+def filter_and_add():
     if (i['to_word'][0]['meaning'] != 'translation unavailable') and (
             i['to_word'][0]['meaning'] != '-') and len(trans_words) < 3:
         trans_words.add(i['to_word'][0]['meaning'])
     if num < 3:
         q_sentences.add(i['from_example'])
-    if i['to_example']:
-        a_sentences[i['from_example']] = i['to_example'][0]
+    if i['to_example'] and (i['to_word'][0]['meaning'] != 'translation unavailable') and (
+            i['to_word'][0]['meaning'] != '-'):
+        x = str(i['to_word'][0]['meaning']) + "</td>" + "<td>" + str(i['from_example'])
+        a_sentences[x] = i['to_example'][0]
 
 
 def set_anki_stuff():
     global my_deck, my_model
     my_deck = genanki.Deck(
         deck_id=3485385385,
-        name='Spanish 10000')
+        name='Generated Anki Deck')
     my_model = genanki.Model(
         model_id=3485385385,
         name='Persie0 Model',
-        css=".card { font-family: arial; font-size: 2em;text-align: center;color: black;background-color: "
-            "white;}.alts { font-size: 0.5em;}.attrs { font-style: italic; font-size: 14px;}"
+        css=".card { font-family: arial; font-size: 5.2vw;text-align: center;color: black;background-color: "
+            "white;}.alts { font-size: 3vw;}.attrs { font-style: italic; font-size: 14px;}"
             "table, th, td {border: 2px solid;  margin-left: auto; margin-right: auto; padding: 6px; } table {  "
             "border-collapse: collapse;  width: 100%;}",
         fields=[
@@ -38,8 +41,7 @@ def set_anki_stuff():
             {
                 'name': 'Card 1',
                 'qfmt': "{{Question}}<br>{{#Question sentences}}<br /><span class=\"alts\">{{Question "
-                        "sentences}}</span>{ "
-                        "{/Question sentences}}",
+                        "sentences}}</span>{{/Question sentences}}",
                 'afmt': '{{FrontSide}}<hr id="answer" />{{Answer}}<br>{{#Answer sentences and translations}}<br '
                         '/><span '
                         'class="alts">{{Answer sentences and translations}}</span>{{/Answer sentences and '
@@ -50,40 +52,61 @@ def set_anki_stuff():
 
 
 if __name__ == '__main__':
-    with open('es_50k.txt') as f:
+    fromLang = "es"
+    toLang = "en"
+    filename = '10000mostusedspanish.txt'
+    with open(filename) as f:
         lines = f.readlines()
     my_deck = genanki.Deck()
     my_model = genanki.Model()
     set_anki_stuff()
     count = 0
+    not_translated = IndexedSet()
     for word in lines:
         word = word.replace("\n", "")
-        wr = WordReference('es', 'en')  # same as WordReference('esen')
+        wr = WordReference(fromLang, toLang)
+        res = list()
         try:
             res = wr.translate(word)["translations"][0]['entries']
-        except:
+            res2 = wr.translate(word)["translations"][2]['entries']
+        except NameError:
+            not_translated.add(word + "\n")
             continue
+        except IndexError:
+            res2 = []
         trans_words = IndexedSet()
         count += 1
         q_sentences = IndexedSet()
         a_sentences = dict()
+        trans_str = ""
         num = 0
         for i in res:
             if i['from_word']['source'] == word or word + ',' in i['from_word']['source']:
                 num += 1
-                filter_add()
-        if len(trans_words) == 0:
-            for i in res:
+                filter_and_add()
+        for i in res2:
+            if num < 3:
+                q_sentences.add(i['from_example'])
                 num += 1
-                filter_add()
-        # print(str(count))
-        # sys.stdout.write("\033[F")
-        # print(word)
-        # print(trans_words)
-        # print("\n")
+            if i['to_example']:
+                y = str(i['to_word'][0]['meaning']) + "<br>------------<br>" + i['from_word'][
+                    'source'] + "</td>" + "<td>" + str(i['from_example'])
+                a_sentences[y] = i['to_example'][0]
+        if len(trans_words) == 0:
+            if fromLang == "es" and toLang == "en":
+                try:
+                    res2 = palabras.core.get_word_info(word)
+                    for i in res2.definition_strings:
+                        trans_str = trans_str + i + "<br>"
+                except palabras.core.WiktionaryPageNotFound:
+                    not_translated.add(word + "\n")
+                    continue
+            else:
+                for i in res:
+                    num += 1
+                    filter_and_add()
         q_sentences_str = "<table>"
         a_sentences_str = "<table>"
-        trans_str = ""
         for w in trans_words:
             trans_str = trans_str + w + "; "
 
@@ -108,6 +131,10 @@ if __name__ == '__main__':
         time.sleep(0.1)
         if (count % 1000) == 0:
             print(str(count))
-        # if (count%10000)==0:
-        #     break
-    genanki.Package(my_deck).write_to_file('output.apkg')
+        if (count % 7) == 0:
+            break
+    file1 = open("not_translated.txt", "w")
+    file1.writelines(not_translated)
+    file1.close()
+    f.close()
+    genanki.Package(my_deck).write_to_file(filename.replace(".txt", ""))

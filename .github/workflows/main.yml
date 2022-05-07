@@ -1,6 +1,6 @@
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: Python application
+name: Old method
 
 on:
   workflow_dispatch:
@@ -36,4 +36,10 @@ jobs:
     # A file, directory or wildcard pattern that describes what to upload
         path: output.apkg
     # The desired behavior if no files are found using the provided path.
+        retention-days: 90
+    - name: Upload not_translated
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: not_translated
+        path: not_translated.txt
         retention-days: 90

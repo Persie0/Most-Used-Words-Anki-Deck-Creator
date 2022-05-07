@@ -38,15 +38,18 @@ jobs:
         python -m pip install --upgrade pip
         pip install wheel
         pip install -r requirements.txt
-    - name: build release
+    - name: build Anki Deck
       run: |
         python main.py ${{ github.event.inputs.textfilename }} ${{ github.event.inputs.from }} ${{ github.event.inputs.to }}
-    - name: Upload a Build Artifact
+    - name: Upload Anki Deck
       uses: actions/upload-artifact@v3.0.0
       with:
-    # Artifact name
         name: release
-    # A file, directory or wildcard pattern that describes what to upload
         path: output.apkg
-    # The desired behavior if no files are found using the provided path.
         retention-days: 90
+    - name: Upload not_translated
+      uses: actions/upload-artifact@v3.0.0
+      with:
+         name: not_translated
+         path: not_translated.txt
+         retention-days: 90
