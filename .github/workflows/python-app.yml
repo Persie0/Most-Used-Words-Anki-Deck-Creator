@@ -25,7 +25,9 @@ on:
           - en
           - es
       numberOfWords:
-        description: 'How many Cards/Words your Anki Deck should have (Whole Number!) (Write 0 to go through the whole .txt file)'
+        description: 'How many Cards/Words your Anki Deck should have (Whole Number!) 
+        Write 0 to go through the whole .txt file
+        There is a 6h Github Action time limit!!! '
         required: true
         type: string
 
