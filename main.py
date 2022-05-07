@@ -138,7 +138,7 @@ if __name__ == '__main__':
             fields=[str(count), word, q_sentences_str, trans_str, a_sentences_str])
         # print([word, q_sentences_str, trans_str, a_sentences_str])
         my_deck.add_note(my_note)
-        time.sleep(0.1)
+        # time.sleep(0.1)
         if (count % 1000) == 0:
             print(str(count))
         if numberOfWords != 0:
