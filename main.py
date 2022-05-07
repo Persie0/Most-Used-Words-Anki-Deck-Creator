@@ -105,10 +105,7 @@ if __name__ == '__main__':
                     res2 = palabras.core.get_word_info(word)
                     for i in res2.definition_strings:
                         trans_str = trans_str + i + "<br>"
-                except palabras.core.WiktionaryPageNotFound:
-                    not_translated.add(word + "\n")
-                    continue
-                except palabras.core.WiktionarySectionNotFound:
+                except:
                     not_translated.add(word + "\n")
                     continue
             else:
