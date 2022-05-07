@@ -136,8 +136,8 @@ if __name__ == '__main__':
         time.sleep(0.1)
         if (count % 1000) == 0:
             print(str(count))
-        if (count % 7) == 0:
-            break
+        # if (count % 7) == 0:
+        #     break
     file1 = open("not_translated.txt", "w")
     file1.writelines(not_translated)
     file1.close()
