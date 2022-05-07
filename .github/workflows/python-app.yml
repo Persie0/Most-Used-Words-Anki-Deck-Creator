@@ -24,6 +24,10 @@ on:
         options:
           - en
           - es
+      numberOfWords:
+        description: 'How many Cards/Words your Anki Deck should have (Whole Number!) (Write 0 to go through the whole .txt file)'
+        required: true
+        type: string
 
 permissions:
   contents: read
