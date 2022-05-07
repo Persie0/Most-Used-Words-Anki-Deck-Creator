@@ -62,6 +62,7 @@ if __name__ == '__main__':
     # filename = '10000mostusedspanish.txt'
     with open(filename) as f:
         lines = f.readlines()
+    print("Started Deck creation :)")
     my_deck = genanki.Deck()
     my_model = genanki.Model()
     set_anki_stuff()
