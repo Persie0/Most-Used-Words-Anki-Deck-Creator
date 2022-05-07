@@ -22,7 +22,7 @@ def set_anki_stuff():
     global my_deck, my_model
     my_deck = genanki.Deck(
         deck_id=3485385385,
-        name='Generated Anki Deck')
+        name=filename)
     my_model = genanki.Model(
         model_id=3485385385,
         name='Persie0 Model',
@@ -148,4 +148,4 @@ if __name__ == '__main__':
     file1.writelines(not_translated)
     file1.close()
     f.close()
-    genanki.Package(my_deck).write_to_file(filename.replace(".txt", ""))
+    genanki.Package(my_deck).write_to_file('GeneratedAnkiDeck.apkg')
