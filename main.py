@@ -55,6 +55,7 @@ if __name__ == '__main__':
     fromLang = sys.argv[2]
     toLang = sys.argv[3]
     filename = sys.argv[1]
+    numberOfWords = int(sys.argv[4])
     if not filename.endswith(".txt"):
         filename+=".txt"
     # fromLang = "es"
@@ -104,7 +105,7 @@ if __name__ == '__main__':
                     res2 = palabras.core.get_word_info(word)
                     for i in res2.definition_strings:
                         trans_str = trans_str + i + "<br>"
-                except palabras.core.WiktionaryPageNotFound:
+                except palabras.core.WiktionaryPageNotFound or palabras.core.WiktionarySectionNotFound:
                     not_translated.add(word + "\n")
                     continue
             else:
@@ -137,8 +138,8 @@ if __name__ == '__main__':
         time.sleep(0.1)
         if (count % 1000) == 0:
             print(str(count))
-        # if (count % 7) == 0:
-        #     break
+        if (count % numberOfWords) == 0:
+            break
     file1 = open("not_translated.txt", "w")
     file1.writelines(not_translated)
     file1.close()
