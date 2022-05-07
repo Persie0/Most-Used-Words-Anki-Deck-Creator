@@ -57,7 +57,7 @@ if __name__ == '__main__':
     filename = sys.argv[1]
     numberOfWords = int(sys.argv[4])
     if not filename.endswith(".txt"):
-        filename+=".txt"
+        filename += ".txt"
     # fromLang = "es"
     # toLang = "en"
     # filename = '10000mostusedspanish.txt'
@@ -138,8 +138,9 @@ if __name__ == '__main__':
         time.sleep(0.1)
         if (count % 1000) == 0:
             print(str(count))
-        if (count % numberOfWords) == 0:
-            break
+        if numberOfWords != 0:
+            if (count % numberOfWords) == 0:
+                break
     file1 = open("not_translated.txt", "w")
     file1.writelines(not_translated)
     file1.close()
