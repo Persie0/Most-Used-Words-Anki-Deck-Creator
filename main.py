@@ -52,6 +52,7 @@ def set_anki_stuff():
 
 
 if __name__ == '__main__':
+    start = time.time()
     fromLang = sys.argv[2]
     toLang = sys.argv[3]
     filename = sys.argv[1]
@@ -144,6 +145,9 @@ if __name__ == '__main__':
         if numberOfWords != 0:
             if (count % numberOfWords) == 0:
                 break
+        end = time.time()
+        if (start-end)>(60*60*5.997):
+            break
     file1 = open("not_translated.txt", "w")
     file1.writelines(not_translated)
     file1.close()
