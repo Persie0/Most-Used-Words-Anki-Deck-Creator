@@ -1,9 +1,9 @@
 import genanki
 from boltons.setutils import IndexedSet
 
-
+#has a default Anki model and css
 class AnkiDeck:
-
+#intitialises default Anki model and css, defines anki filename
     def __init__(self, filename: str):
         self.filename = filename[:-4]
         self.not_translated = IndexedSet()
@@ -38,6 +38,7 @@ class AnkiDeck:
             ]
         )
 
+#add an Note/Card to the deck (eg:  1, the, ... - as "the" is a much used word it's number 1)
     def addnote(self, count: int, word: str, q_sentences_str: str, trans_str: str, a_sentences_str: str):
         my_note = genanki.Note(
             sort_field=count,
@@ -45,6 +46,7 @@ class AnkiDeck:
             fields=[str(count), word, q_sentences_str, trans_str, a_sentences_str])
         self.my_deck.add_note(my_note)
 
+    #creates the AnkiDeck-file to import, also generates not_translated.txt file
     def create(self):
         genanki.Package(self.my_deck).write_to_file(self.filename + ".apkg")
 
