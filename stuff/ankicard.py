@@ -42,8 +42,12 @@ class AnkiCard:
         self.q_sentences.add(q_sentence)
 
     def add_a_sentences(self, meaning: str, from_example: str, to_example: str, optional_target_meaning=None):
-        if not optional_target_meaning:
+        meaning = str(meaning)
+        from_example = str(from_example)
+        to_example = str(to_example)
+        optional_target_meaning = str(optional_target_meaning)
+        if not isinstance(optional_target_meaning, str):
             self.a_sentences[meaning + "</td><td>" + from_example] = to_example
         else:
-            self.a_sentences[
-                meaning + "<br>------------<br>" + optional_target_meaning + "</td><td>" + from_example] = to_example
+            self.a_sentences[meaning + "<br>------------<br>" + optional_target_meaning +
+                             "</td><td>" + from_example] = to_example

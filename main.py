@@ -32,9 +32,9 @@ if __name__ == '__main__':
         filename += ".txt"
 
     with open("lists/" + filename) as f:
-        if f.errors:
-            print(f.errors)
-        else:
+        # if f.errors:
+        #     print(f.errors)
+        # else:
             lines = f.readlines()
 
     print("Started Deck creation :)")
@@ -97,4 +97,5 @@ if __name__ == '__main__':
         if (start - end) > (60 * 60 * 5.997):
             break
         ankideck.create()
-        break
+        if count==10:
+            break
