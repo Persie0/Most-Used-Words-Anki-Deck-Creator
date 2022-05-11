@@ -6,7 +6,6 @@ from boltons.setutils import IndexedSet
 import palabras.core
 
 
-
 def filter_and_add():
     if (i['to_word'][0]['meaning'] != 'translation unavailable') and (
             i['to_word'][0]['meaning'] != '-') and len(trans_words) < 3:
@@ -15,7 +14,7 @@ def filter_and_add():
         q_sentences.add(i['from_example'])
     if i['to_example'] and (i['to_word'][0]['meaning'] != 'translation unavailable') and (
             i['to_word'][0]['meaning'] != '-'):
-        x = str(i['to_word'][0]['meaning']) + "</td>" + "<td>" + str(i['from_example'])
+        x = i['to_word'][0]['meaning'] + "</td>" + "<td>" + i['from_example']
         a_sentences[x] = i['to_example'][0]
 
 
@@ -32,12 +31,11 @@ if __name__ == '__main__':
     # fromLang = "es"
     # toLang = "en"
     # filename = '10000mostusedspanish.txt'
-    with open("lists/"+filename) as f:
+    with open("lists/" + filename) as f:
         lines = f.readlines()
     print("Started Deck creation :)")
     ankideck = anki.AnkiDeck(filename)
     count = 0
-    not_translated = IndexedSet()
     for word in lines:
         word = word.replace("\n", "")
         wr = WordReference(fromLang, toLang)
@@ -46,7 +44,7 @@ if __name__ == '__main__':
             res = wr.translate(word)["translations"][0]['entries']
             res2 = wr.translate(word)["translations"][2]['entries']
         except NameError:
-            not_translated.add(word + "\n")
+            ankideck.add_not_translated(word)
             continue
         except IndexError:
             res2 = []
@@ -75,10 +73,10 @@ if __name__ == '__main__':
                     for i in res2.definition_strings:
                         trans_str = trans_str + i + "<br>"
                 except palabras.core.WiktionaryPageNotFound:
-                    not_translated.add(word + "\n")
+                    ankideck.add_not_translated(word)
                     continue
                 except palabras.core.WiktionarySectionNotFound:
-                    not_translated.add(word + "\n")
+                    ankideck.add_not_translated(word)
                     continue
             else:
                 for i in res:
@@ -113,8 +111,5 @@ if __name__ == '__main__':
         end = time.time()
         if (start - end) > (60 * 60 * 5.997):
             break
-    file1 = open("not_translated.txt", "w")
-    file1.writelines(not_translated)
-    file1.close()
-    f.close()
-    ankideck.create()
+        ankideck.create()
+        break

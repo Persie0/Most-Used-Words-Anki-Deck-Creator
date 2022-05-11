@@ -1,11 +1,12 @@
 import genanki
+from boltons.setutils import IndexedSet
 
 
 class AnkiDeck:
 
     def __init__(self, filename: str):
-        # Instance Variable
         self.filename = filename[:-4]
+        self.not_translated = IndexedSet()
 
         self.my_deck = genanki.Deck(
             deck_id=3485385385,
@@ -46,3 +47,8 @@ class AnkiDeck:
 
     def create(self):
         genanki.Package(self.my_deck).write_to_file(self.filename + ".apkg")
+
+        open("not_translated.txt", "w").writelines(self.not_translated)
+
+    def add_not_translated(self, word: str):
+        self.not_translated.add(word + "\n")
