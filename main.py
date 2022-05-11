@@ -10,7 +10,7 @@ import stuff.ankicard as card
 
 def filter_and_add():
     if (i['to_word'][0]['meaning'] != 'translation unavailable') and (
-            i['to_word'][0]['meaning'] != '-') and len(ankicard.trans_words) < 3:
+            i['to_word'][0]['meaning'] != '-'):
         ankicard.add_trans_words(i['to_word'][0]['meaning'])
     if num < 3:
         ankicard.add_q_sentences(i['from_example'])
@@ -21,26 +21,24 @@ def filter_and_add():
 
 # python .\main.py 10000mostusedspanish.txt es en 0
 
-if __name__ == '__main__':
+def init_param():
+    global start, fromLang, toLang, filename, numberOfWords, ankideck
     start = time.time()
     fromLang = sys.argv[2]
     toLang = sys.argv[3]
     filename = sys.argv[1]
     numberOfWords = int(sys.argv[4])
-
     if not filename.endswith(".txt"):
         filename += ".txt"
-
-    with open("lists/" + filename) as f:
-        # if f.errors:
-        #     print(f.errors)
-        # else:
-            lines = f.readlines()
-
-    print("Started Deck creation :)")
     ankideck = deck.AnkiDeck(filename)
-    count = 0
-    for word in lines:
+
+if __name__ == '__main__':
+    start, fromLang, toLang, filename, numberOfWords, ankideck, count \
+        = 0, "", "", "", 0, deck.AnkiDeck(""), 0
+    init_param()
+    with open("lists/" + filename) as f:
+        txt_lines = f.readlines()
+    for word in txt_lines:
         word = word.replace("\n", "")
         wr = WordReference(fromLang, toLang)
         res = list()
@@ -52,10 +50,8 @@ if __name__ == '__main__':
             continue
         except IndexError:
             res2 = []
-
         count += 1
         ankicard = card.AnkiCard(count, word)
-
         num = 0
         for i in res:
             if i['from_word']['source'] == word or word + ',' in i['from_word']['source']:
@@ -84,18 +80,13 @@ if __name__ == '__main__':
                 for i in res:
                     num += 1
                     filter_and_add()
-
         ankicard.convert()
         ankideck.addnote(count, word, ankicard.q_sentences_str, ankicard.trans_str, ankicard.a_sentences_str)
-        # time.sleep(0.1)
-        if (count % 1000) == 0:
-            print(str(count))
+        print(count)
         if numberOfWords != 0:
             if (count % numberOfWords) == 0:
                 break
         end = time.time()
         if (start - end) > (60 * 60 * 5.997):
             break
-        ankideck.create()
-        if count==10:
-            break
+    ankideck.create()

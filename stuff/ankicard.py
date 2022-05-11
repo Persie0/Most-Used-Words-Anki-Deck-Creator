@@ -16,6 +16,7 @@ class AnkiCard:
 
     # convert the lists and map to html-strings that look good in Anki
     def convert(self):
+        #len(ankicard.trans_words) < 3
         for w in self.trans_words:
             if "<br>" in w:
                 self.trans_str += self.trans_str
