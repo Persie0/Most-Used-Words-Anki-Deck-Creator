@@ -1,9 +1,10 @@
 from wrpy import WordReference
-import genanki
+import stuff.anki as anki
 import time
 import sys
 from boltons.setutils import IndexedSet
 import palabras.core
+
 
 
 def filter_and_add():
@@ -18,38 +19,7 @@ def filter_and_add():
         a_sentences[x] = i['to_example'][0]
 
 
-def set_anki_stuff():
-    global my_deck, my_model
-    my_deck = genanki.Deck(
-        deck_id=3485385385,
-        name=filename)
-    my_model = genanki.Model(
-        model_id=3485385385,
-        name='Persie0 Model',
-        css=".card { font-family: arial; font-size: 5.2vw;text-align: center;color: black;background-color: "
-            "white;}.alts { font-size: 3vw;}.attrs { font-style: italic; font-size: 14px;}"
-            "table, th, td {border: 2px solid;  margin-left: auto; margin-right: auto; padding: 6px; } table {  "
-            "border-collapse: collapse;  width: 100%;}",
-        fields=[
-            {'name': 'Index'},
-            {'name': 'Question'},
-            {'name': 'Question sentences'},
-            {'name': 'Answer'},
-            {'name': 'Answer sentences and translations'},
-        ],
-        templates=[
-            {
-                'name': 'Card 1',
-                'qfmt': "{{Question}}<br>{{#Question sentences}}<br /><span class=\"alts\">{{Question "
-                        "sentences}}</span>{{/Question sentences}}",
-                'afmt': '{{FrontSide}}<hr id="answer" />{{Answer}}<br>{{#Answer sentences and translations}}<br '
-                        '/><span '
-                        'class="alts">{{Answer sentences and translations}}</span>{{/Answer sentences and '
-                        'translations}}<div style="display:none;"></div>',
-            },
-        ]
-    )
-
+# python .\main.py 10000mostusedspanish.txt es en 0
 
 if __name__ == '__main__':
     start = time.time()
@@ -62,12 +32,10 @@ if __name__ == '__main__':
     # fromLang = "es"
     # toLang = "en"
     # filename = '10000mostusedspanish.txt'
-    with open(filename) as f:
+    with open("lists/"+filename) as f:
         lines = f.readlines()
     print("Started Deck creation :)")
-    my_deck = genanki.Deck()
-    my_model = genanki.Model()
-    set_anki_stuff()
+    ankideck = anki.AnkiDeck(filename)
     count = 0
     not_translated = IndexedSet()
     for word in lines:
@@ -133,12 +101,9 @@ if __name__ == '__main__':
                 a_sentences_str = a_sentences_str + "<tr><td>" + key + "</td><td>" + value + "</td></tr>"
 
         a_sentences_str += "</table>"
-        my_note = genanki.Note(
-            sort_field=count,
-            model=my_model,
-            fields=[str(count), word, q_sentences_str, trans_str, a_sentences_str])
+
         # print([word, q_sentences_str, trans_str, a_sentences_str])
-        my_deck.add_note(my_note)
+        ankideck.addnote(count, word, q_sentences_str, trans_str, a_sentences_str)
         # time.sleep(0.1)
         if (count % 1000) == 0:
             print(str(count))
@@ -146,10 +111,10 @@ if __name__ == '__main__':
             if (count % numberOfWords) == 0:
                 break
         end = time.time()
-        if (start-end)>(60*60*5.997):
+        if (start - end) > (60 * 60 * 5.997):
             break
     file1 = open("not_translated.txt", "w")
     file1.writelines(not_translated)
     file1.close()
     f.close()
-    genanki.Package(my_deck).write_to_file('GeneratedAnkiDeck.apkg')
+    ankideck.create()
