@@ -23,7 +23,7 @@ With this python script you can create an anki deck from a given list with words
 <h3>Create one Ankideck (easier, shorter)</h3>
 
 1. Fork this project
-2. upload your .txt files from which you want to create Anki Deck(s) into the "lists" folder
+2. upload your .txt file from which you want to create a Ankideck to the forked repo
 3. run the action "Create Anki release from a given, single file" ("Run Workflow")
 4. and type in the parameters 
 5. after more or less time depending on how many word you want to translate, the workflow should upload your Ankidecks
@@ -33,7 +33,7 @@ With this python script you can create an anki deck from a given list with words
 <h3>Multiple create multiple Ankidecks at once (harder, longer)</h3>
 
 1. Fork this project
-2. upload your .txt files from which you want to create Anki Deck(s) into the "lists" folder
+2. upload your .txt files from which you want to create Anki Deck(s) to the forked repo; I recommend to upload into the uploads directory
 3. follow this 
 https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-token=
 and create a access token with "repo" and "workflow" ticked (first 2)
