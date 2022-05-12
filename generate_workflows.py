@@ -29,7 +29,7 @@ if __name__ == '__main__':
 
 
     content = {
-        'name': 'Create Anki release with multiple jobs',
+        'name': 'Create Anki releases with multiple files',
         True: {
             'workflow_dispatch': {
                 'inputs': {
