@@ -21,6 +21,7 @@ With this python script you can create an anki deck from a given list with words
 
 # How to use
 <h3>Create one Ankideck (easier, shorter)</h3>
+
 1. Fork this project
 2. upload your .txt files from which you want to create Anki Deck(s) into the "lists" folder
 3. run the action "Create Anki release from a given, single file" ("Run Workflow")
@@ -30,6 +31,7 @@ With this python script you can create an anki deck from a given list with words
 
 
 <h3>Multiple create multiple Ankidecks at once (harder, longer)</h3>
+
 1. Fork this project
 2. upload your .txt files from which you want to create Anki Deck(s) into the "lists" folder
 3. follow this 
