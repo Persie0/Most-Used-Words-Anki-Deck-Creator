@@ -32,6 +32,12 @@ on:
         required: true
         type: string
 
+permissions:
+  contents: write
+  pull-requests: write
+  issues: read
+  packages: none
+
 
 jobs:
   build:
