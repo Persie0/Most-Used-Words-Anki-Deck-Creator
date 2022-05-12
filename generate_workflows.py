@@ -41,32 +41,6 @@ if __name__ == '__main__':
         'name': 'Create Anki releases with multiple files',
         'on': {
             'workflow_dispatch': {
-                'inputs': {
-                    'textfilename': {
-                        'description': 'Name of your .txt file',
-                        'required': True,
-                        'type': 'string'
-                    },
-                    'from': {
-                        'description': 'Language of words from given .txt file',
-                        'required': True,
-                        'type': 'choice',
-                        'options': ['es', 'en']
-                    },
-                    'to': {
-                        'description': 'Language to which should be translated to',
-                        'required': True,
-                        'type': 'choice',
-                        'options': ['en', 'es']
-                    },
-                    'numberOfWords': {
-                        'description': 'How many Cards/Words your Anki Deck should have (Whole Number!) Write 0 to go '
-                                       'through the whole .txt file. There is a 6h Github Action time limit!!! So max. '
-                                       'Word (in Github Actions) are ca. 25000',
-                        'required': True,
-                        'type': 'string'
-                    }
-                }
             }
         },
         'permissions': {
