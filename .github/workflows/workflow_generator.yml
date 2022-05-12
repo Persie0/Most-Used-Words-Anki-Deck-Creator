@@ -51,7 +51,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install wheel
         pip install -r requirements.txt
-    - name: build Anki Deck
+    - name: create workflow file
       run: |
         python generate_workflows.py ${{ github.event.inputs.directory }} ${{ github.event.inputs.from }} ${{ github.event.inputs.to }} ${{ github.event.inputs.numberOfWords }}
     - name: Upload workflow file
