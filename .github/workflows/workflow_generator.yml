@@ -32,9 +32,6 @@ on:
         required: true
         type: string
 
-permissions:
-  contents: read
-
 jobs:
   build:
 
@@ -57,12 +54,6 @@ jobs:
     - name: create workflow file
       run: |
         python generate_workflows.py ${{ github.event.inputs.directory }} ${{ github.event.inputs.from }} ${{ github.event.inputs.to }} ${{ github.event.inputs.numberOfWords }}
-    - name: Upload workflow file
-      uses: actions/upload-artifact@v3.0.0
-      with:
-        name: workflow
-        path: .github/workflows/multiple.yml
-        retention-days: 90
     - name: Commit files
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -72,5 +63,4 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
 
