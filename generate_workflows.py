@@ -1,6 +1,6 @@
+import ntpath
 import sys
 import os
-from collections import OrderedDict
 import yaml
 
 # python .\generate_workflows.py lists es en 10000
@@ -16,18 +16,13 @@ if __name__ == '__main__':
     toLang = sys.argv[3]
     directory = sys.argv[1]
 
-    if not directory.endswith("\\"):
-        directory += "\\"
     numberOfWords = int(sys.argv[4])
-    print(directory)
     files = []
-    # get all *files* from directory and subdirectories
     for root, dirs, files in os.walk(directory, topdown=False):
         for name in files:
+            print(os.path.join(root, name))
             files.append(os.path.join(root, name))
-        for name in dirs:
-            files.append(os.path.join(root, name))
-    content = OrderedDict({
+    content = {
         'name': 'Create Anki releases with multiple files',
         'on': {
             'workflow_dispatch': {
@@ -87,14 +82,15 @@ if __name__ == '__main__':
                 }]
             }
         }
-    })
+    }
     for i in files:
+        print(i)
         new = {
-            'name': 'build Anki Deck ' + i,
-            'run': 'python main.py ' + directory + i + ' ' + fromLang + ' ' + toLang + ' ' + str(numberOfWords) + '\n'
+            'name': 'build Anki Deck ' + ntpath.basename(i),
+            'run': 'python main.py ' + i + ' ' + fromLang + ' ' + toLang + ' ' + str(numberOfWords)
         }
         content["jobs"]["build"]["steps"].insert(3, new)
         print(content["jobs"]["build"]["steps"][3])
-
+    print(content["jobs"]["build"]["steps"][3])
     with open('.github/workflows/multiple.yml', 'w') as f:
-        yaml.dump(dict(content), f)
+        yaml.dump(content, f)
