@@ -6,7 +6,7 @@ With this python script you can create an anki deck from a given list with words
 - https://en.wiktionary.org/wiki/Wiktionary:Frequency_lists
 - Github
 
-# Implement
+# Implement:
 - https://pypi.org/project/pystone/
 - https://pypi.org/project/dingonyms/
 - https://pypi.org/project/zdict/ -> https://github.com/zdict/zdict/tree/6cd5528a49ccec56e243f47b8ab6372bcf6c4a79/zdict/tests/dictionaries
@@ -18,7 +18,8 @@ With this python script you can create an anki deck from a given list with words
 
 # TODO
 - **Done:** Make a script that generates a GitHub action file which runs all files of a directory 
-- Check if input is actually existing text file
+- Check if input is an actually existing text file
+- Add the Implements
 
 # How to use
 <h3>Create one Ankideck (easier, shorter)</h3>
