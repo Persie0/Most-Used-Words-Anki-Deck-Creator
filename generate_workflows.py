@@ -1,6 +1,6 @@
 import sys
 import os
-
+from collections import OrderedDict
 import yaml
 
 # python .\generate_workflows.py lists es en 10000
@@ -26,8 +26,7 @@ if __name__ == '__main__':
             files.append(os.path.join(root, name))
         for name in dirs:
             files.append(os.path.join(root, name))
-
-    content = {
+    content = OrderedDict({
         'name': 'Create Anki releases with multiple files',
         'on': {
             'workflow_dispatch': {
@@ -87,7 +86,7 @@ if __name__ == '__main__':
                 }]
             }
         }
-    }
+    })
     for i in files:
         new = {
             'name': 'build Anki Deck ' + i,
