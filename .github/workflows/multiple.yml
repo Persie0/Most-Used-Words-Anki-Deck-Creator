@@ -1,5 +1,5 @@
 name: Create Anki release with multiple jobs
-true:
+on:
   workflow_dispatch:
     inputs:
       from:
