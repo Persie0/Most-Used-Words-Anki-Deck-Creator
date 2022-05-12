@@ -5,6 +5,22 @@ import yaml
 
 # python .\generate_workflows.py lists es en 10000
 
+def getListOfFiles(dirName):
+    # create a list of file and sub directories
+    # names in the given directory
+    listOfFile = os.listdir(dirName)
+    allFiles = list()
+    # Iterate over all the entries
+    for entry in listOfFile:
+        # Create full path
+        fullPath = os.path.join(dirName, entry)
+        # If entry is a directory then get the list of files in this directory
+        if os.path.isdir(fullPath):
+            allFiles = allFiles + getListOfFiles(fullPath)
+        else:
+            allFiles.append(fullPath)
+
+    return allFiles
 
 # load an already existing file to get data
 # with open('.github/workflows/multiple.yml') as f:
@@ -17,11 +33,9 @@ if __name__ == '__main__':
     directory = sys.argv[1]
 
     numberOfWords = int(sys.argv[4])
-    files = []
-    for root, dirs, files in os.walk(directory, topdown=False):
-        for name in files:
-            print(os.path.join(root, name))
-            files.append(os.path.join(root, name))
+    files = getListOfFiles(directory)
+    print(getListOfFiles(directory))
+
     content = {
         'name': 'Create Anki releases with multiple files',
         'on': {
@@ -90,7 +104,5 @@ if __name__ == '__main__':
             'run': 'python main.py ' + i + ' ' + fromLang + ' ' + toLang + ' ' + str(numberOfWords)
         }
         content["jobs"]["build"]["steps"].insert(3, new)
-        print(content["jobs"]["build"]["steps"][3])
-    print(content["jobs"]["build"]["steps"][3])
     with open('.github/workflows/multiple.yml', 'w') as f:
         yaml.dump(content, f)

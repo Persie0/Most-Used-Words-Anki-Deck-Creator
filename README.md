@@ -18,3 +18,12 @@ With this python script you can create an anki deck from a given list with words
 
 # TODO
 - Make a script that generates a Github action file which runs all files of a directory 
+
+# How to use
+1. Fork this project
+2. upload your .txt files from which you want to create Anki Deck(s) into the "lists" folder
+3. go to the Github Actions tab of your forked project
+4. go to "Create workflow file" and type in the parameters
+5. wait some time until this action is finished
+6. then go to the 
+
