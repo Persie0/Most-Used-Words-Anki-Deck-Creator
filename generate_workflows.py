@@ -15,10 +15,11 @@ if __name__ == '__main__':
     fromLang = sys.argv[2]
     toLang = sys.argv[3]
     directory = sys.argv[1]
+
     if not directory.endswith("\\"):
         directory += "\\"
     numberOfWords = int(sys.argv[4])
-
+    print(directory)
     files = []
     # get all *files* from directory and subdirectories
     for root, dirs, files in os.walk(directory, topdown=False):
@@ -93,7 +94,7 @@ if __name__ == '__main__':
             'run': 'python main.py ' + directory + i + ' ' + fromLang + ' ' + toLang + ' ' + str(numberOfWords) + '\n'
         }
         content["jobs"]["build"]["steps"].insert(3, new)
-        # print(content["jobs"]["build"]["steps"][3])
+        print(content["jobs"]["build"]["steps"][3])
 
     with open('.github/workflows/multiple.yml', 'w') as f:
-        yaml.dump(content, f)
+        yaml.dump(dict(content), f)
