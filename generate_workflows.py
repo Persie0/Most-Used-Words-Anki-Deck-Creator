@@ -16,21 +16,20 @@ if __name__ == '__main__':
     toLang = sys.argv[3]
     directory = sys.argv[1]
     if not directory.endswith("\\"):
-      directory+="\\"
+        directory += "\\"
     numberOfWords = int(sys.argv[4])
 
-    files=[]
+    files = []
     # get all *files* from directory and subdirectories
     for root, dirs, files in os.walk(directory, topdown=False):
-       for name in files:
-          files.append(os.path.join(root, name))
-       for name in dirs:
-          files.append(os.path.join(root, name))
-
+        for name in files:
+            files.append(os.path.join(root, name))
+        for name in dirs:
+            files.append(os.path.join(root, name))
 
     content = {
         'name': 'Create Anki releases with multiple files',
-        True: {
+        'on': {
             'workflow_dispatch': {
                 'inputs': {
                     'textfilename': {

@@ -53,7 +53,7 @@ jobs:
         pip install -r requirements.txt
     - name: build Anki Deck
       run: |
-        python main.py ${{ github.event.inputs.directory }} ${{ github.event.inputs.from }} ${{ github.event.inputs.to }} ${{ github.event.inputs.numberOfWords }}
+        python generate_workflows.py ${{ github.event.inputs.directory }} ${{ github.event.inputs.from }} ${{ github.event.inputs.to }} ${{ github.event.inputs.numberOfWords }}
     - name: Upload workflow file
       uses: actions/upload-artifact@v3.0.0
       with:
