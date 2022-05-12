@@ -15,3 +15,6 @@ With this python script you can create an anki deck from a given list with words
 - https://pypi.org/project/allreverso/
 - https://pypi.org/project/translators/
 - https://pypi.org/project/translatepy/
+
+# TODO
+- Make a script that generates a Github action file which runs all files of a directory 

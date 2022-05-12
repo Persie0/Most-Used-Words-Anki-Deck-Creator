@@ -1,5 +1,6 @@
 import sys
 import time
+import ntpath
 
 from stuff.es_palabras import Palabras
 
@@ -8,27 +9,28 @@ from stuff.ankicard import AnkiCard
 from stuff.wordreference import WR
 
 
-# python .\main.py 10000mostusedspanish.txt es en 0
+# python .\main.py lists/es/10000mostusedspanish.txt es en 0
 
 def init_param():
-    global start, fromLang, toLang, filename, numberOfWords, ankideck
+    global start, fromLang, toLang, filename, numberOfWords, ankideck, path
     start = time.time()
     fromLang = sys.argv[2]
     toLang = sys.argv[3]
-    filename = sys.argv[1]
+    path = sys.argv[1]
+    filename = ntpath.basename(path)
     numberOfWords = int(sys.argv[4])
     if not filename.endswith(".txt"):
         filename += ".txt"
-    ankideck = AnkiDeck(filename)
+    ankideck = AnkiDeck(filename, path[:-4])
 
 
 if __name__ == '__main__':
-    start, fromLang, toLang, filename, numberOfWords, ankideck, count \
-        = 0, "", "", "", 0, AnkiDeck(""), 0
+    start, fromLang, toLang, filename, path, numberOfWords, ankideck, count \
+        = 0, "", "", "", "", 0, AnkiDeck("", ""), 0
     init_param()
     wr = WR(fromLang, toLang)
 
-    with open("lists/" + filename) as f:
+    with open(path) as f:
         txt_lines = f.readlines()
 
     for word in txt_lines:
@@ -48,7 +50,7 @@ if __name__ == '__main__':
 
         ankicard.convert()
         ankideck.addnote(count, word, ankicard.q_sentences_str, ankicard.trans_str, ankicard.a_sentences_str)
-        print(count)
+        # print(count)
         if numberOfWords != 0:
             if (count % numberOfWords) == 0:
                 break
