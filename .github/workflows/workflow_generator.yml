@@ -37,6 +37,7 @@ permissions:
   pull-requests: write
   issues: read
   packages: none
+  actions: write
 
 
 jobs:
