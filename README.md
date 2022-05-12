@@ -17,7 +17,8 @@ With this python script you can create an anki deck from a given list with words
 - https://pypi.org/project/translatepy/
 
 # TODO
-- Make a script that generates a GitHub action file which runs all files of a directory 
+- **Done:** Make a script that generates a GitHub action file which runs all files of a directory 
+- Check if input is actually existing text file
 
 # How to use
 <h3>Create one Ankideck (easier, shorter)</h3>
@@ -40,7 +41,7 @@ and create an access token with "repo" and "workflow" ticked (first 2)
 4. copy the created token
 5. follow this (on your forked repo)
 https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository=
-call it secret WORKFLOW_TOKEN and paste the before created access token 
+call it secret `WORKFLOW_TOKEN` and paste the before created access token 
 6. go to the GitHub Actions tab of your forked project
 7. go to "Create workflow file" and type in the parameters
 8. wait some time until this action is finished
