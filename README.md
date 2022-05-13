@@ -10,16 +10,13 @@ With this python script you can create an anki deck from a given list with words
 - https://pypi.org/project/pystone/
 - https://pypi.org/project/dingonyms/
 - https://pypi.org/project/zdict/ -> https://github.com/zdict/zdict/tree/6cd5528a49ccec56e243f47b8ab6372bcf6c4a79/zdict/tests/dictionaries
-- https://github.com/demian-wolf/pyreverso
-- https://github.com/flagist0/reverso_context_api
-- https://pypi.org/project/allreverso/
-- https://pypi.org/project/translators/
 - https://pypi.org/project/translatepy/
 
 # TODO
 - **Done:** Make a script that generates a GitHub action file which runs all files of a directory 
 - Check if input is an actually existing text file
 - Add the Implements
+- Add Audio to Reverso class and Anki Cards
 
 # How to use
 <h3>Create one Ankideck (easier, shorter)</h3>

@@ -80,6 +80,6 @@ if __name__ == '__main__':
             'run': 'python main.py ' + i + ' ' + fromLang + ' ' + toLang + ' ' + str(numberOfWords)
         }
         content["jobs"]["build"]["steps"].insert(3, new)
-        content['name']='"'+directory+'" - GW'
-    with open('.github/workflows/'+directory.replace("/", ".")+'.yml', 'w') as f:
+        content['name'] = '"' + directory + '" - GW'
+    with open('.github/workflows/' + directory.replace("/", ".") + '.yml', 'w') as f:
         yaml.dump(content, f)
