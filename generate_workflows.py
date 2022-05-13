@@ -34,7 +34,7 @@ if __name__ == '__main__':
     fromLang = sys.argv[2]
     toLang = sys.argv[3]
     directory = sys.argv[1]
-
+    print(directory)
     numberOfWords = int(sys.argv[4])
     files = getListOfFiles(directory)
     print(getListOfFiles(directory))
@@ -81,5 +81,5 @@ if __name__ == '__main__':
         }
         content["jobs"]["build"]["steps"].insert(3, new)
         content['name'] = '"' + directory + '" - GW'
-    with open('.github/workflows/' + directory.replace("/", ".") + '.yml', 'w') as f:
+    with open('.github/workflows/' + directory.replace("\\", ".") + '.yml', 'w') as f:
         yaml.dump(content, f)

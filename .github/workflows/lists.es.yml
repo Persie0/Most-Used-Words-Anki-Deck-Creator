@@ -16,20 +16,20 @@ jobs:
 
         '
     - name: build Anki Deck most-common-spanish-words.txt
-      run: python main.py lists/es\most-common-spanish-words.txt es en 10000
+      run: python main.py lists\es\most-common-spanish-words.txt es en 10000
     - name: build Anki Deck most-common-spanish-words-v5.txt
-      run: python main.py lists/es\most-common-spanish-words-v5.txt es en 10000
+      run: python main.py lists\es\most-common-spanish-words-v5.txt es en 10000
     - name: build Anki Deck es_50k.txt
-      run: python main.py lists/es\es_50k.txt es en 10000
+      run: python main.py lists\es\es_50k.txt es en 10000
     - name: build Anki Deck 10000mostusedspanish.txt
-      run: python main.py lists/es\10000mostusedspanish.txt es en 10000
+      run: python main.py lists\es\10000mostusedspanish.txt es en 10000
     - name: Upload Anki Decks
       uses: actions/upload-artifact@v3.0.0
       with:
         name: release
         path: CreatedDecks
         retention-days: 90
-name: '"lists/es" - GW'
+name: '"lists\es" - GW'
 'on':
   workflow_dispatch: {}
 permissions:
