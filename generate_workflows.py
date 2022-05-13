@@ -3,6 +3,7 @@ import sys
 import os
 import yaml
 
+
 # python .\generate_workflows.py lists es en 10000
 
 # get all sub/directory files
@@ -23,6 +24,7 @@ def getListOfFiles(dirName):
 
     return allFiles
 
+
 # load an already existing file to get data
 # with open('.github/workflows/multiple.yml') as f:
 #     data = yaml.load(f, Loader=yaml.FullLoader)
@@ -38,7 +40,6 @@ if __name__ == '__main__':
     print(getListOfFiles(directory))
 
     content = {
-        'name': 'Create Anki releases with multiple files',
         'on': {
             'workflow_dispatch': {
             }
@@ -79,5 +80,6 @@ if __name__ == '__main__':
             'run': 'python main.py ' + i + ' ' + fromLang + ' ' + toLang + ' ' + str(numberOfWords)
         }
         content["jobs"]["build"]["steps"].insert(3, new)
-    with open('.github/workflows/multiple.yml', 'w') as f:
+        content['name']='"'+directory+'" - GW'
+    with open('.github/workflows/'+directory.replace("/", ".")+'.yml', 'w') as f:
         yaml.dump(content, f)
