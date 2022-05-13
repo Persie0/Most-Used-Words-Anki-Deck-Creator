@@ -46,7 +46,7 @@ call it secret `WORKFLOW_TOKEN` and paste the before created access token
 6. go to the GitHub Actions tab of your forked project
 7. go to "Create workflow file" and type in the parameters
 8. wait some time until this action is finished
-9. then go to the action "Create Anki releases with multiple files"
+9. then go to the action "'`Folder you typed in at step 7`' : GW"
 10. and run it
 11. after more or less time depending on how many word you want to translate, the workflow should upload your Ankidecks
 
