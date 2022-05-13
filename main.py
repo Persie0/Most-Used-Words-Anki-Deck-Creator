@@ -2,11 +2,12 @@ import sys
 import time
 import ntpath
 
-from stuff.es_palabras import Palabras
+# from stuff.es_palabras import Palabras
 
 from stuff.ankideck import AnkiDeck
 from stuff.ankicard import AnkiCard
 from stuff.wordreference import WR
+from stuff.trl import Transl
 
 
 # python .\main.py lists/es/10000mostusedspanish.txt es en 0
@@ -29,6 +30,7 @@ if __name__ == '__main__':
         = 0, "", "", "", "", 0, AnkiDeck("", ""), 0
     init_param()
     wr = WR(fromLang, toLang)
+    trl = Transl(fromLang, toLang)
 
     with open(path) as f:
         txt_lines = f.readlines()
@@ -36,17 +38,23 @@ if __name__ == '__main__':
     for word in txt_lines:
         ankicard = AnkiCard(count, word)
 
-        if wr.add_translations(word, ankicard):
-            count += 1
-            if len(ankicard.trans_words) == 0:
-                if not Palabras(word).add_translations(ankicard):
-                    ankideck.add_not_translated(word)
+        # old method
+        # if wr.add_translations(word, ankicard):
+        #     count += 1
+        #     if len(ankicard.trans_words) == 0:
+        #         if not Palabras(word).add_translations(ankicard):
+        #             ankideck.add_not_translated(word)
+        #
+        # else:
+        #     if Palabras(word).add_translations(ankicard):
+        #         count += 1
+        #     else:
+        #         ankideck.add_not_translated(word)
 
+        if trl.add_translations(word, ankicard):
+            count += 1
         else:
-            if Palabras(word).add_translations(ankicard):
-                count += 1
-            else:
-                ankideck.add_not_translated(word)
+            ankideck.add_not_translated(word)
 
         ankicard.convert()
         ankideck.addnote(count, word, ankicard.q_sentences_str, ankicard.trans_str, ankicard.a_sentences_str)
