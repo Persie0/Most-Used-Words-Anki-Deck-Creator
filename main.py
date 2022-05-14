@@ -2,7 +2,7 @@ import sys
 import time
 import ntpath
 
-# from stuff.es_palabras import Palabras
+from stuff.es_palabras import Palabras
 
 from stuff.ankideck import AnkiDeck
 from stuff.ankicard import AnkiCard
@@ -10,17 +10,17 @@ from stuff.wordreference import WR
 from stuff.trl import Transl
 
 
-# python .\main.py lists/es/10000mostusedspanish.txt es en 0
+# lists\es\most-common-spanish-words.txt es en 10
 
 def init_param():
     global start, fromLang, toLang, filename, numberOfWords, ankideck, path
     start = time.time()
     fromLang = sys.argv[2]
     toLang = sys.argv[3]
-    path = str(sys.argv[1])
+    # fix as \ in created workflow file just disappears - so made 2
+    path = sys.argv[1].replace("\\\\", "\\")
     filename = ntpath.basename(path)
     numberOfWords = int(sys.argv[4])
-    print(path)
     if not filename.endswith(".txt"):
         filename += ".txt"
     ankideck = AnkiDeck(filename, path[:-4])
@@ -33,29 +33,25 @@ if __name__ == '__main__':
     wr = WR(fromLang, toLang)
     trl = Transl(fromLang, toLang)
 
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         txt_lines = f.readlines()
 
     for word in txt_lines:
         ankicard = AnkiCard(count, word)
 
-        # old method
-        # if wr.add_translations(word, ankicard):
-        #     count += 1
-        #     if len(ankicard.trans_words) == 0:
-        #         if not Palabras(word).add_translations(ankicard):
-        #             ankideck.add_not_translated(word)
-        #
-        # else:
-        #     if Palabras(word).add_translations(ankicard):
-        #         count += 1
-        #     else:
-        #         ankideck.add_not_translated(word)
-
         if trl.add_translations(word, ankicard):
             count += 1
+            wr.add_sentences_only(word, ankicard)
+        elif wr.add_translations(word, ankicard):
+            count += 1
+            if len(ankicard.trans_words) == 0:
+                if fromLang == "es" and toLang == "en":
+                    if not Palabras(word).add_translations(ankicard):
+                        ankideck.add_not_translated(word)
+                        continue
         else:
             ankideck.add_not_translated(word)
+            continue
 
         ankicard.convert()
         ankideck.addnote(count, word, ankicard.q_sentences_str, ankicard.trans_str, ankicard.a_sentences_str)

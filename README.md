@@ -6,19 +6,16 @@ With this python script you can create an anki deck from a given list with words
 - https://en.wiktionary.org/wiki/Wiktionary:Frequency_lists
 - Github
 
-# Implement:
-- https://pypi.org/project/pystone/
-- https://pypi.org/project/dingonyms/
-- https://pypi.org/project/zdict/ -> https://github.com/zdict/zdict/tree/6cd5528a49ccec56e243f47b8ab6372bcf6c4a79/zdict/tests/dictionaries
-- https://pypi.org/project/translatepy/
-
 # TODO
-- **Done:** Make a script that generates a GitHub action file which runs all files of a directory 
+- ~~Make a script that generates a GitHub action file which runs all files of a directory~~ 
 - Check if input is an actually existing text file
+- add option for folder name as the source language - to translate multiple files from multiple languages
 - Add the Implements
-- Add Audio to Reverso class and Anki Cards
+- Add Audio to (Reverso class and) Anki Cards
+- add monolingual mode (with dictionaries) for advanced vocabulary
 
 # How to use
+All of the words you want to translate have to be in a text file with one word per line!
 <h3>Create one Ankideck (easier, shorter)</h3>
 
 1. Fork this project
@@ -29,7 +26,7 @@ With this python script you can create an anki deck from a given list with words
 
 
 
-<h3>Multiple create multiple Ankidecks at once (harder, longer)</h3>
+<h3>Create multiple Ankidecks at once (harder, longer)</h3>
 
 1. Fork this project
 2. upload your .txt files from which you want to create Anki Deck(s) to the forked repo; I recommend to upload into the uploads directory
@@ -47,3 +44,12 @@ call it secret `WORKFLOW_TOKEN` and paste the before created access token
 10. and run it
 11. after more or less time depending on how many word you want to translate, the workflow should upload your Ankidecks
 
+# Implement:
+<h4>Monolingual:</h4>
+- https://pypi.org/project/pystone/
+- https://pypi.org/project/dingonyms/
+- https://pypi.org/project/allreverso/ -> can get synonyms
+
+<h4>Polylingual:</h4>
+- https://pypi.org/project/zdict/ -> https://github.com/zdict/zdict/tree/6cd5528a49ccec56e243f47b8ab6372bcf6c4a79/zdict/tests/dictionaries
+- maybe: https://pypi.org/project/translators/

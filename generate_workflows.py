@@ -74,10 +74,10 @@ if __name__ == '__main__':
         }
     }
     for i in files:
-        print(i)
+        # .replace: fix as \ in created workflow file just disappears - so made 2
         new = {
             'name': 'build Anki Deck ' + ntpath.basename(i),
-            'run': 'python main.py ' + i + ' ' + fromLang + ' ' + toLang + ' ' + str(numberOfWords)
+            'run': 'python main.py ' + i.replace("\\","\\\\") + ' ' + fromLang + ' ' + toLang + ' ' + str(numberOfWords)
         }
         content["jobs"]["build"]["steps"].insert(3, new)
         content['name'] = '"' + directory + '" - GW'
