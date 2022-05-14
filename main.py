@@ -17,9 +17,10 @@ def init_param():
     start = time.time()
     fromLang = sys.argv[2]
     toLang = sys.argv[3]
-    path = sys.argv[1]
+    path = str(sys.argv[1])
     filename = ntpath.basename(path)
     numberOfWords = int(sys.argv[4])
+    print(path)
     if not filename.endswith(".txt"):
         filename += ".txt"
     ankideck = AnkiDeck(filename, path[:-4])
