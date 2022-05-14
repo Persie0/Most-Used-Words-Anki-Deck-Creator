@@ -19,7 +19,6 @@ def init_param():
     toLang = sys.argv[3]
     # fix as \ in created workflow file just disappears - so made 2
     path = sys.argv[1]
-    path=path.replace("\\\\", "\\")
     filename = ntpath.basename(path)
     numberOfWords = int(sys.argv[4])
     if not filename.endswith(".txt"):
