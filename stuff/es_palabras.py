@@ -9,6 +9,7 @@ class Palabras:
     def add_translations(self, card: AnkiCard):
         try:
             res2 = palabras.core.get_word_info(self.word)
+            # as info is a sentence -> add newline at end
             for i in res2.definition_strings:
                 card.add_trans_words(i + "<br>")
         except palabras.core.WiktionaryPageNotFound:

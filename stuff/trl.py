@@ -13,15 +13,16 @@ class Transl:
         self.reverso = ReversoTranslate()
         self.translator = Translator()
 
-    def add_translations(self, transl_word: str, card: AnkiCard):
+    def add_translations(self, target_word: str, card: AnkiCard):
+        target_word=target_word.replace("\n","")
         disable_warnings()
         times = 0
         # try:
-            # list with strings, single word translations
-        dictionary = self.reverso.dictionary(transl_word, destination_language=self.to_lang,
+        # list with strings, single word translations
+        dictionary = self.reverso.dictionary(target_word, destination_language=self.to_lang,
                                              source_language=self.from_lang).result
         # map with source sentence, translated sentence, opensubs link, ...
-        example_sentences = self.reverso.example(transl_word, destination_language=self.to_lang,
+        example_sentences = self.reverso.example(target_word, destination_language=self.to_lang,
                                                  source_language=self.from_lang).result
         # no translated word found?
         if (len(dictionary)) == 0:
@@ -36,12 +37,17 @@ class Transl:
                         card.add_trans_words(transl_word)
                         times += 1
                     word_added = True
-                    # add 3 example sentences for question
-                    if num < 3:
-                        card.add_q_sentences(s['t_text'])
+                    # add 2 example sentences for question
+                    # replace <em> tag with color
+                    if num < 2:
+                        card.add_q_sentences(
+                            s['s_text'].replace("<em>"+target_word+"</em>", '<FONT COLOR="#ef9a9a">'+target_word+'</FONT>'))
                         num += 1
                     # add as many sentences as possible with transl_word and transl_sentence for answer
-                    card.add_a_sentences(transl_word, s['s_text'], s['t_text'])
+                    #replace <em> tag with color
+                    card.add_a_sentences(transl_word,
+                                         s['s_text'].replace("<em>"+target_word+"</em>", '<FONT COLOR="#ef9a9a">'+target_word+'</FONT>'),
+                                         s['t_text'].replace("<em>"+transl_word+"</em>", '<FONT COLOR="#ef9a9a">'+transl_word+'</FONT>'))
 
         return True
 

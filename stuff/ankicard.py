@@ -24,13 +24,13 @@ class AnkiCard:
                 self.trans_str = self.trans_str + w + "; "
         self.trans_str = self.trans_str[:-2]
 
-        self.q_sentences_str += "<table>"
+        self.q_sentences_str += '<button onmouseover="showExamplesTable()">show examples</button><table id="examplesTable">'
         for sen in self.q_sentences:
             if isinstance(sen, str):
                 self.q_sentences_str = self.q_sentences_str + "<tr><td>" + sen + "</td></tr>"
         self.q_sentences_str += "</table>"
 
-        self.a_sentences_str += "<table>"
+        self.a_sentences_str += '<button onmouseover="showExamplesTable2()">show examples</button><table id="examplesTable2">'
         for key, value in self.a_sentences.items():
             if isinstance(key, str) and isinstance(value, str):
                 self.a_sentences_str = self.a_sentences_str + "<tr><td>" + key + "</td><td>" + value + "</td></tr>"
@@ -43,13 +43,13 @@ class AnkiCard:
     def add_q_sentences(self, q_sentence: str):
         self.q_sentences.add(q_sentence)
 
-    def add_a_sentences(self, meaning: str, from_example: str, to_example: str, optional_target_meaning=""):
-        meaning = str(meaning)
+    def add_a_sentences(self, to_meaning: str, from_example: str, to_example: str, from_meaning=""):
+        to_meaning = str(to_meaning)
         from_example = str(from_example)
         to_example = str(to_example)
-        optional_target_meaning = str(optional_target_meaning)
-        if optional_target_meaning=="":
-            self.a_sentences[meaning + "</td><td>" + from_example] = to_example
+        from_meaning = str(from_meaning)
+        if from_meaning== "":
+            self.a_sentences[to_meaning + "</td><td>" + from_example] = to_example
         else:
-            self.a_sentences[meaning + "<br>------------<br>" + optional_target_meaning +
+            self.a_sentences[to_meaning + "<br>------------<br>" + from_meaning +
                              "</td><td>" + from_example] = to_example

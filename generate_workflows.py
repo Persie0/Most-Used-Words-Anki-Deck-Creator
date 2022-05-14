@@ -6,7 +6,7 @@ import yaml
 
 # python .\generate_workflows.py lists es en 10000
 
-# get all sub/directory files
+# get all (sub)directory files
 def getListOfFiles(dirName):
     # create a list of file and sub directories
     # names in the given directory

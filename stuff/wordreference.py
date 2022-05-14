@@ -59,7 +59,7 @@ class WR:
             if i['to_example'] and valid_translation:
                 card.add_a_sentences(i['to_word'][0]['meaning'], i['from_example'], i['to_example'][0])
 
-#maybe add more sentences
+    # maybe add more sentences
     def add_sentences_only(self, word: str, card: AnkiCard):
         word = word.replace("\n", "")
         res = dict()
@@ -74,14 +74,25 @@ class WR:
         except IndexError:
             res2 = []
         for i in res:
+            meaning = i['to_word'][0]['meaning']
+            to_example = i['to_example']
+            from_example = i['from_example']
             # word in translations that got fetched included?
             if i['from_word']['source'] == word or word + ',' in i['from_word']['source']:
-                valid_translation = (i['to_word'][0]['meaning'] != 'translation unavailable') and (
-                        i['to_word'][0]['meaning'] != '-')
-                if i['to_example'] and valid_translation:
-                    card.add_a_sentences(i['to_word'][0]['meaning'], i['from_example'], i['to_example'][0])
+                valid_translation = (meaning != 'translation unavailable') and (
+                        meaning != '-')
+                if to_example and valid_translation:
+                    card.add_a_sentences(meaning,
+                                         from_example.replace(word, '<FONT COLOR="#ef9a9a">' + word + '</FONT>'),
+                                         to_example[0].replace(meaning, '<FONT COLOR="#ef9a9a">' + meaning + '</FONT>'))
         for i in res2:
-            if i['to_example']:
-                card.add_a_sentences(i['to_word'][0]['meaning'], i['from_example'], i['to_example'][0],
-                                     i['from_word']['source'])
+            meaning = i['to_word'][0]['meaning']
+            to_example = i['to_example']
+            from_example = i['from_example']
+            from_meaning = i['from_word']['source']
+            if to_example:
+                card.add_a_sentences(meaning, from_example.replace(from_meaning,
+                                                                   '<FONT COLOR="#ef9a9a">' + from_meaning + '</FONT>'),
+                                     to_example[0].replace(meaning, '<FONT COLOR="#ef9a9a">' + meaning + '</FONT>'),
+                                     from_meaning)
         return True

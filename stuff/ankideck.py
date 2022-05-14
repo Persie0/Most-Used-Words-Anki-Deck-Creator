@@ -17,7 +17,8 @@ class AnkiDeck:
             name='Persie0 Model',
             css=".card { font-family: arial; font-size: 5.2vw;text-align: center;color: black;background-color: "
                 "white;}.alts { font-size: 3vw;}.attrs { font-style: italic; font-size: 14px;}"
-                "table, th, td {border: 2px solid;  margin-left: auto; margin-right: auto; padding: 6px; } table {  "
+                "#examplesTable, #examplesTable2 {display:none}"
+                "th, td { border: 2px solid;  margin-left: auto; margin-right: auto; padding: 6px; } table {  "
                 "border-collapse: collapse;  width: 100%;}",
             fields=[
                 {'name': 'Index'},
@@ -28,13 +29,17 @@ class AnkiDeck:
             ],
             templates=[
                 {
-                    'name': 'Card 1',
-                    'qfmt': "{{Question}}<br>{{#Question sentences}}<br /><span class=\"alts\">{{Question "
-                            "sentences}}</span>{{/Question sentences}}",
-                    'afmt': '{{FrontSide}}<hr id="answer" />{{Answer}}<br>{{#Answer sentences and translations}}<br '
-                            '/><span '
-                            'class="alts">{{Answer sentences and translations}}</span>{{/Answer sentences and '
-                            'translations}}<div style="display:none;"></div>',
+                    'name': 'Perzi Template',
+                    'qfmt': '''{{Question}}<br>{{#Question sentences}}
+                            <span class="alts">{{Question sentences}}</span><script>
+                            function showExamplesTable(){
+                            document.getElementById('examplesTable').style.display="block";}
+                            </script>{{/Question sentences}}<div style="display:none;"></div>''',
+                    'afmt': '''{{FrontSide}}<hr id="answer" />{{Answer}}<br>{{#Answer sentences and translations}}
+                            <span class="alts">{{Answer sentences and translations}}</span><script>
+                            function showExamplesTable2(){
+                            document.getElementById('examplesTable2').style.display="block";}
+                            </script>{{/Answer sentences and translations}}<div style="display:none;"></div>''',
                 },
             ]
         )
