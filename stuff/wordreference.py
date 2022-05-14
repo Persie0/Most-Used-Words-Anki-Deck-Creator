@@ -79,7 +79,7 @@ class WR:
             if i['from_word']['source'] == word or word + ',' in i['from_word']['source']:
                 valid_translation = (meaning != 'translation unavailable') and (
                         meaning != '-')
-                if to_example and valid_translation:
+                if to_example and from_example and valid_translation:
                     card.add_a_sentences(meaning,
                                          from_example.replace(word, '<FONT COLOR="#ef9a9a">' + word + '</FONT>'),
                                          to_example[0].replace(meaning, '<FONT COLOR="#ef9a9a">' + meaning + '</FONT>'))
@@ -88,7 +88,7 @@ class WR:
             to_example = i['to_example']
             from_example = i['from_example']
             from_meaning = i['from_word']['source']
-            if to_example:
+            if to_example and from_example:
                 card.add_a_sentences(meaning, from_example.replace(from_meaning,
                                                                    '<FONT COLOR="#ef9a9a">' + from_meaning + '</FONT>'),
                                      to_example[0].replace(meaning, '<FONT COLOR="#ef9a9a">' + meaning + '</FONT>'),
