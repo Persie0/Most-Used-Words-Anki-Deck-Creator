@@ -1,9 +1,9 @@
 import sys
 import time
 import ntpath
+import codecs
 
 from stuff.es_palabras import Palabras
-
 from stuff.ankideck import AnkiDeck
 from stuff.ankicard import AnkiCard
 from stuff.wordreference import WR
@@ -33,10 +33,15 @@ if __name__ == '__main__':
     wr = WR(fromLang, toLang)
     trl = Transl(fromLang, toLang)
 
-    with open(path, encoding="utf-8") as f:
+
+
+    with codecs.open(path, encoding="utf8", errors='replace') as f:
         txt_lines = f.readlines()
 
     for word in txt_lines:
+        #to also see \n or similar
+        # print(repr(word))
+        word=word.replace("\n", "").replace("\r", "")
         ankicard = AnkiCard(count, word)
 
         if trl.add_translations(word, ankicard):
@@ -60,6 +65,7 @@ if __name__ == '__main__':
             if (count % numberOfWords) == 0:
                 break
         end = time.time()
-        if (start - end) > (60 * 60 * 5.997):
+        # run for 5h 57min max
+        if (end - start) > (60 * 60 * 5.95):
             break
     ankideck.create()

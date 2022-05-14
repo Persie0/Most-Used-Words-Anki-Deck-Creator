@@ -34,7 +34,6 @@ if __name__ == '__main__':
     fromLang = sys.argv[2]
     toLang = sys.argv[3]
     directory = sys.argv[1]
-    print(directory)
     numberOfWords = int(sys.argv[4])
     files = getListOfFiles(directory)
     print(getListOfFiles(directory))

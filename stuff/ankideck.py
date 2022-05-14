@@ -54,7 +54,6 @@ class AnkiDeck:
 
     # creates the AnkiDeck-file to import, also generates not_translated.txt file
     def create(self):
-        print(self.path)
         if not os.path.exists(self.path):
             os.makedirs(self.path)
         # get the directory an filename without .txt

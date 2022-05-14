@@ -14,7 +14,6 @@ class Transl:
         self.translator = Translator()
 
     def add_translations(self, target_word: str, card: AnkiCard):
-        target_word=target_word.replace("\n","")
         disable_warnings()
         times = 0
         # try:

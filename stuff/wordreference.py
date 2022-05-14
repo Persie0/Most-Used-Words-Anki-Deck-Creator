@@ -10,7 +10,6 @@ class WR:
         self.wr = WordReference(fromlang, tolang)
 
     def add_translations(self, word: str, card: AnkiCard):
-        word = word.replace("\n", "")
         res = dict()
         try:
             # most used translation
@@ -61,7 +60,6 @@ class WR:
 
     # maybe add more sentences
     def add_sentences_only(self, word: str, card: AnkiCard):
-        word = word.replace("\n", "")
         res = dict()
         try:
             # most used translation
