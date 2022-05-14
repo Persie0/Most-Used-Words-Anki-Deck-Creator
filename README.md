@@ -44,6 +44,10 @@ call it secret `WORKFLOW_TOKEN` and paste the before created access token
 10. and run it
 11. after more or less time depending on how many word you want to translate, the workflow should upload your Ankidecks
 
+# For Devs
+If you run the generate_workflows.py on Windows and push the workflows it won't work. This is due the different directory seperators on Windows and Linux. A possible solotion would be to set the `runs-on:` part from `ubuntu-latest` to `windows-latest`.
+
+
 # Implement:
 <h4>Monolingual:</h4>
 - https://pypi.org/project/pystone/
