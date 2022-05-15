@@ -1,7 +1,6 @@
 import sys
 import time
 import ntpath
-import codecs
 
 from stuff.es_palabras import Palabras
 from stuff.ankideck import AnkiDeck
@@ -33,15 +32,13 @@ if __name__ == '__main__':
     wr = WR(fromLang, toLang)
     trl = Transl(fromLang, toLang)
 
-
-
-    with codecs.open(path, encoding="utf8", errors='replace') as f:
+    with open(path, encoding="utf8", errors='replace') as f:
         txt_lines = f.readlines()
 
     for word in txt_lines:
-        #to also see \n or similar
+        # to also see \n or similar
         # print(repr(word))
-        word=word.replace("\n", "").replace("\r", "")
+        word = word.replace("\n", "").replace("\r", "")
         ankicard = AnkiCard(count, word)
 
         if trl.add_translations(word, ankicard):

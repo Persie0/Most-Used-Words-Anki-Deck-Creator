@@ -11,14 +11,14 @@ on:
         required: true 
         type: string
       from:
-        description: 'Language of words from given .txt file'
+        description: 'Language of words from given .txt file in short form (see Readme)'
         required: true
         type: choice
         options:
           - es
           - en
       to:
-        description: 'Language to which should be translated to'
+        description: 'Language to which should be translated to in short form (see Readme)'
         required: true
         type: choice
         options:
