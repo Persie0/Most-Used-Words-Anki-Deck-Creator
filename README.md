@@ -8,11 +8,11 @@ With this python script you can create an anki deck from a given list with words
 
 # TODO
 - ~~Make a script that generates a GitHub action file which runs all files of a directory~~ 
-- Check if input is an actually existing text file
 - add option for folder name as the source language - to translate multiple files from multiple languages
-- Add the Implements
 - Add Audio to (Reverso class and) Anki Cards
+- Add the Implements
 - add monolingual mode (with dictionaries) for advanced vocabulary
+- (Check if input is an actually existing text file)
 
 # How to use
 All of the words you want to translate have to be in a text file with one word per line!
@@ -40,7 +40,7 @@ call it secret `WORKFLOW_TOKEN` and paste the before created access token
 6. go to the GitHub Actions tab of your forked project
 7. go to "Create workflow file" and type in the parameters
 8. wait some time until this action is finished
-9. then go to the action "`'directory` - GW" (directory you entered at 7.)
+9. then go to the action "`directory` - GW" (directory you entered at 7.)
 10. and run it
 11. after more or less time depending on how many word you want to translate, the workflow should upload your Ankidecks
 
