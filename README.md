@@ -46,7 +46,8 @@ call it secret `WORKFLOW_TOKEN` and paste the before created access token
 
 # Language Codes
 Generally the ISO 639-1 (alpha 2) format (like website top domain; eg: "en" for English, "de" for German,...) should be used, others could be supported too.
-<iframe src="https://datahub.io/core/language-codes/r/0.html" width="100%" height="100%" frameborder="0"></iframe>
+All language codes (I think):
+https://datahub.io/core/language-codes/r/0.html
 
 # ! For Devs
 If you run the generate_workflows.py on Windows and push the workflows it won't work. This is due the different directory seperators on Windows and Linux. A possible solotion would be to set the `runs-on:` part from `ubuntu-latest` to `windows-latest`.
