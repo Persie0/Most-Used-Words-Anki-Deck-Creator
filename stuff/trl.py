@@ -52,8 +52,6 @@ class Transl:
                                                                      '<FONT COLOR="#ef9a9a">' + target_word + '</FONT>'),
                                                  s['t_text'].replace("<em>" + transl_word + "</em>",
                                                                      '<FONT COLOR="#ef9a9a">' + transl_word + '</FONT>'))
-                print(target_word + " translated successfully")
-                print("retry: " + str(i))
                 return True
             except Exception as e:
                 print("retry: " + str(i))

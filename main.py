@@ -36,34 +36,39 @@ if __name__ == '__main__':
     with open(path, encoding="utf8", errors='replace') as f:
         txt_lines = f.readlines()
 
-    for word in txt_lines:
+    for line in txt_lines:
         # to also see \n or similar
         # print(repr(word))
-        word = word.replace("\n", "").replace("\r", "")
-        ankicard = AnkiCard(count, word)
+        line = line.replace("\n", "").replace("\r", "")
+        # if there are multiple word in a line seperated by "|"
+        words=line.split("|")
+        for word in words:
+            ankicard = AnkiCard(count, word)
 
-        if trl.add_translations(word, ankicard):
-            count += 1
-            wr.add_sentences_only(word, ankicard)
-        elif wr.add_translations(word, ankicard):
-            count += 1
-            if len(ankicard.trans_words) == 0:
-                if fromLang == "es" and toLang == "en":
-                    if not Palabras(word).add_translations(ankicard):
-                        ankideck.add_not_translated(word)
-                        continue
-        else:
-            ankideck.add_not_translated(word)
-            continue
+            if trl.add_translations(word, ankicard):
+                count += 1
+                wr.add_sentences_only(word, ankicard)
+            elif wr.add_translations(word, ankicard):
+                count += 1
+                if len(ankicard.trans_words) == 0:
+                    if fromLang == "es" and toLang == "en":
+                        if not Palabras(word).add_translations(ankicard):
+                            ankideck.add_not_translated(word)
+                            continue
+            else:
+                ankideck.add_not_translated(word)
+                continue
 
-        ankicard.convert()
-        ankideck.addnote(count, word, ankicard.q_sentences_str, ankicard.trans_str, ankicard.a_sentences_str)
+            ankicard.convert()
+            ankideck.addnote(count, word, ankicard.q_sentences_str, ankicard.trans_str, ankicard.a_sentences_str)
         # print(count)
         if numberOfWords != 0:
-            if (count % numberOfWords) == 0:
+            if count >= numberOfWords:
                 break
         end = time.time()
-        # run for 5h 57min max
-        if (end - start) > (60 * 60 * 5.95):
+        passed=end - start
+        # run for 5h 50min max, to leave time for ankideck.create()
+        print(passed)
+        if (passed) > (60 * 60 * 5.834):
             break
     ankideck.create()
