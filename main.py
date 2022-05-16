@@ -22,6 +22,7 @@ def init_param():
     numberOfWords = int(sys.argv[4])
     if not filename.endswith(".txt"):
         filename += ".txt"
+        path += ".txt"
     ankideck = AnkiDeck(filename, path[:-4])
 
 

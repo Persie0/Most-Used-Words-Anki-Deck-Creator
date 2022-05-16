@@ -1,7 +1,7 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: single file, artifact
+name: single file
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ on:
         type: string
       textfilename:
         description: 'Name of your .txt file'
-        required: true
+        required: true 
         type: string
       from:
         description: 'Language of words from given .txt file in short form (see Readme)'
@@ -52,9 +52,13 @@ jobs:
     - name: build Anki Deck
       run: |
         python main.py  ${{ github.event.inputs.path }}${{ github.event.inputs.textfilename }} ${{ github.event.inputs.from }} ${{ github.event.inputs.to }} ${{ github.event.inputs.numberOfWords }}
-    - name: Upload
-      uses: actions/upload-artifact@v3.0.0
+    - name: Commit files
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git commit -m "Updated via Actions" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
       with:
-        name: release
-        path: ${{ github.event.inputs.path }}
-        retention-days: 90
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        branch: ${{ github.ref }}
