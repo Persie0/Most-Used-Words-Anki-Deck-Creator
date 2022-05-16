@@ -28,7 +28,7 @@ on:
         type: string
 
       pushtogithub:
-        description: 'Should the generated Decks be pushed to Github(True) or uploaded here in Actions as an Artifact (False)'
+        description: 'Should the generated Decks be pushed to Github(ticked) or uploaded here in Actions as an Artifact (not ticked)'
         required: true
         type: boolean
 
