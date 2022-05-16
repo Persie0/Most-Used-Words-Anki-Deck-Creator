@@ -54,7 +54,6 @@ class Transl:
                                                                      '<FONT COLOR="#ef9a9a">' + transl_word + '</FONT>'))
                 return True
             except Exception as e:
-                print("retry: " + str(i))
                 if i == 3:
                     print(repr(target_word) + " not translated: ")
                     print(e)
