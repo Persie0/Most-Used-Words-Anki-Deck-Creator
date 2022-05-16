@@ -1,18 +1,14 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: single file
+name: single file, Git push
 
 on:
   workflow_dispatch:
     inputs:
-      path:
-        description: 'Path of your .txt file with backslash at end (eg. "path\path2\" not "path\path2"'
+      file:
+        description: 'Path and name of your .txt file (eg. "path/path2/file" not "path/path2/name.txt"'
         required: true
-        type: string
-      textfilename:
-        description: 'Name of your .txt file'
-        required: true 
         type: string
       from:
         description: 'Language of words from given .txt file in short form (see Readme)'
@@ -51,7 +47,7 @@ jobs:
         pip install -r requirements.txt
     - name: build Anki Deck
       run: |
-        python main.py  ${{ github.event.inputs.path }}${{ github.event.inputs.textfilename }} ${{ github.event.inputs.from }} ${{ github.event.inputs.to }} ${{ github.event.inputs.numberOfWords }}
+        python main.py  ${{ github.event.inputs.file }} ${{ github.event.inputs.from }} ${{ github.event.inputs.to }} ${{ github.event.inputs.numberOfWords }}
     - name: Commit files
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
