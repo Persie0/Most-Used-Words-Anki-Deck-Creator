@@ -6,6 +6,10 @@ name: single file
 on:
   workflow_dispatch:
     inputs:
+      path:
+        description: 'Path of your .txt file with backslash at end (eg. "path/path2/" not "path/path2"'
+        required: true
+        type: string
       textfilename:
         description: 'Name of your .txt file'
         required: true 
@@ -47,16 +51,10 @@ jobs:
         pip install -r requirements.txt
     - name: build Anki Deck
       run: |
-        python main.py ${{ github.event.inputs.textfilename }} ${{ github.event.inputs.from }} ${{ github.event.inputs.to }} ${{ github.event.inputs.numberOfWords }}
-    - name: Upload Anki Deck
+        python main.py  ${{ github.event.inputs.path }}${{ github.event.inputs.textfilename }} ${{ github.event.inputs.from }} ${{ github.event.inputs.to }} ${{ github.event.inputs.numberOfWords }}
+    - name: Upload
       uses: actions/upload-artifact@v3.0.0
       with:
         name: release
-        path: ${{ github.event.inputs.textfilename }}
+        path: ${{ github.event.inputs.path }}
         retention-days: 90
-    - name: Upload not_translated
-      uses: actions/upload-artifact@v3.0.0
-      with:
-         name: not_translated
-         path: not_translated.txt
-         retention-days: 90
