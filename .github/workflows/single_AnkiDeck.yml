@@ -52,7 +52,7 @@ jobs:
       uses: actions/upload-artifact@v3.0.0
       with:
         name: release
-        path: GeneratedAnkiDeck.apkg
+        path: ${{ github.event.inputs.textfilename }}
         retention-days: 90
     - name: Upload not_translated
       uses: actions/upload-artifact@v3.0.0
