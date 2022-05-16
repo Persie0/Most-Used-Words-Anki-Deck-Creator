@@ -35,43 +35,78 @@ if __name__ == '__main__':
     toLang = sys.argv[3]
     directory = sys.argv[1]
     numberOfWords = int(sys.argv[4])
+    push_to_git = bool(sys.argv[5])
     files = getListOfFiles(directory)
     print(getListOfFiles(directory))
-
-    content = {
-        'on': {
-            'workflow_dispatch': {
-            }
-        },
-        'permissions': {
-            'contents': 'read'
-        },
-        'jobs': {
-            'build': {
-                'runs-on': 'ubuntu-latest',
-                'steps': [{
-                    'uses': 'actions/checkout@v3'
-                }, {
-                    'name': 'Set up Python 3.10',
-                    'uses': 'actions/setup-python@v3',
-                    'with': {
-                        'python-version': '3.10'
-                    }
-                }, {
-                    'name': 'Install dependencies',
-                    'run': 'python -m pip install --upgrade pip\npip install wheel\npip install -r requirements.txt\n'
-                }, {
-                    'name': 'Upload Anki Decks',
-                    'uses': 'actions/upload-artifact@v3.0.0',
-                    'with': {
-                        'name': 'release',
-                        'path': 'CreatedDecks',
-                        'retention-days': 90
-                    }
-                }]
+    if push_to_git:
+        content = {
+            'on': {
+                'workflow_dispatch': {
+                }
+            },
+            'permissions': {
+                'contents': 'read'
+            },
+            'jobs': {
+                'build': {
+                    'runs-on': 'ubuntu-latest',
+                    'steps': [{
+                        'uses': 'actions/checkout@v3'
+                    }, {
+                        'name': 'Set up Python 3.10',
+                        'uses': 'actions/setup-python@v3',
+                        'with': {
+                            'python-version': '3.10'
+                        }
+                    }, {
+                        'name': 'Install dependencies',
+                        'run': 'python -m pip install --upgrade pip\npip install wheel\npip install -r requirements.txt\n'
+                    }, {
+                        'name': 'Push changes',
+                        'uses': 'ad-m/github-push-action@master',
+                        'with': {
+                            'github_token': '${{ secrets.WORKFLOW_TOKEN }}',
+                            'branch': '${{ github.ref }}',
+                        }
+                    }]
+                }
             }
         }
-    }
+    else:
+        content = {
+            'on': {
+                'workflow_dispatch': {
+                }
+            },
+            'permissions': {
+                'contents': 'read'
+            },
+            'jobs': {
+                'build': {
+                    'runs-on': 'ubuntu-latest',
+                    'steps': [{
+                        'uses': 'actions/checkout@v3'
+                    }, {
+                        'name': 'Set up Python 3.10',
+                        'uses': 'actions/setup-python@v3',
+                        'with': {
+                            'python-version': '3.10'
+                        }
+                    }, {
+                        'name': 'Install dependencies',
+                        'run': 'python -m pip install --upgrade pip\npip install wheel\npip install -r requirements.txt\n'
+                    }, {
+                        'name': 'Upload Anki Decks',
+                        'uses': 'actions/upload-artifact@v3.0.0',
+                        'with': {
+                            'name': 'release',
+                            'path': 'CreatedDecks',
+                            'retention-days': 90
+                        }
+                    }]
+                }
+            }
+        }
     for i in files:
         # .replace: fix as \ in created workflow file just disappears - so made 2
         new = {

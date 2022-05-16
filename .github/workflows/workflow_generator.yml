@@ -27,6 +27,12 @@ on:
         required: true
         type: string
 
+      pushtogithub:
+        description: 'Should the generated Decks be pushed to Github(True) or uploaded here in Actions as an Artifact (False)'
+        required: true
+        type: boolean
+
+
 permissions:
   contents: write
   pull-requests: write
@@ -56,7 +62,7 @@ jobs:
         pip install -r requirements.txt
     - name: create workflow file
       run: |
-        python generate_workflows.py ${{ github.event.inputs.directory }} ${{ github.event.inputs.from }} ${{ github.event.inputs.to }} ${{ github.event.inputs.numberOfWords }}
+        python generate_workflows.py ${{ github.event.inputs.directory }} ${{ github.event.inputs.from }} ${{ github.event.inputs.to }} ${{ github.event.inputs.numberOfWords }} ${{ github.event.inputs.pushtogithub }}
     - name: Commit files
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
