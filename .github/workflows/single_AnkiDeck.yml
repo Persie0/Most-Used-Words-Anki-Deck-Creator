@@ -13,17 +13,11 @@ on:
       from:
         description: 'Language of words from given .txt file in short form (see Readme)'
         required: true
-        type: choice
-        options:
-          - es
-          - en
+        type: string
       to:
         description: 'Language to which should be translated to in short form (see Readme)'
         required: true
-        type: choice
-        options:
-          - en
-          - es
+        type: string
       numberOfWords:
         description: 'How many Cards/Words your Anki Deck should have (Whole Number!) 
         Write 0 to go through the whole .txt file.
