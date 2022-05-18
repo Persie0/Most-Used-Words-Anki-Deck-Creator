@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       path:
-        description: 'Path of your .txt file with backslash at end (eg. "path\path2\" not "path\path2"'
+        description: 'Path of your .txt file with backslash at end (eg. "path/path2/" not "path/path2"'
         required: true
         type: string
       textfilename:
@@ -56,5 +56,5 @@ jobs:
       uses: actions/upload-artifact@v3.0.0
       with:
         name: release
-        path: ${{ github.event.inputs.path }}
+        path: CreatedDecks/${{ github.event.inputs.path }}
         retention-days: 90
