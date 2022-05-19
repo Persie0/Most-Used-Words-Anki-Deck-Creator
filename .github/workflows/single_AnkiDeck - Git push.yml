@@ -26,13 +26,6 @@ on:
         required: true
         type: string
 
-permissions:
-  Actions: write
-  Contents: write
-  Deployments: write
-  PullRequests: write
-  RepositoryProjects: write
-
 jobs:
   build:
 
