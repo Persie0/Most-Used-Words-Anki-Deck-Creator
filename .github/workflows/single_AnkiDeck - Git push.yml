@@ -28,17 +28,10 @@ on:
 
 permissions:
   Actions: write
-  Checks: write
   Contents: write
   Deployments: write
-  Discussions: write
-  Issues: write
-  Metadata: read
-  Packages: write
   PullRequests: write
   RepositoryProjects: write
-  SecurityEvents: write
-  Statuses: write
 
 jobs:
   build:
