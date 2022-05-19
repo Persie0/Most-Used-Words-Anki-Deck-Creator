@@ -8,7 +8,7 @@ class AnkiDeck:
     def __init__(self, filename: str, path: str):
         self.filename = filename[:-4]  # remove .txt
         self.not_translated = IndexedSet()
-        self.path = "CreatedDecks\\"+os.path.dirname(path)
+        self.path = "CreatedDecks/"+os.path.dirname(path)
         self.my_deck = genanki.Deck(
             deck_id=3485385385,
             name=self.filename)
@@ -57,7 +57,7 @@ class AnkiDeck:
         if not os.path.exists(self.path):
             os.makedirs(self.path)
         # get the directory an filename without .txt
-        filedirectory=self.path + "\\" + self.filename
+        filedirectory=self.path + "/" + self.filename
         genanki.Package(self.my_deck).write_to_file(filedirectory + ".apkg")
 
         open(filedirectory + "_not_translated.txt", "w").writelines(self.not_translated)
