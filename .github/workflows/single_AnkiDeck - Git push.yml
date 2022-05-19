@@ -61,10 +61,7 @@ jobs:
         python main.py  ${{ github.event.inputs.file }} ${{ github.event.inputs.from }} ${{ github.event.inputs.to }} ${{ github.event.inputs.numberOfWords }}
     - name: Commit files
       run: |
-        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        git add --all
-        git commit -m "Uploaded ${{ github.event.inputs.file }}" -a
+        git config --global alias.add-commit '!git add -A && git commit'
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
