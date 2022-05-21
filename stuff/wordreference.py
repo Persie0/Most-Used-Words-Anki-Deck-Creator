@@ -1,5 +1,30 @@
+import re
+
 from wrpy import WordReference
 from stuff.ankicard import AnkiCard
+
+
+def extract(i):
+    meaning = i['to_word'][0]['meaning']
+    translation_from_word = i['from_word']['source']
+    to_example = i['to_example']
+    from_example = i['from_example']
+    if to_example and from_example:
+        to_example = re.sub(re.escape(' ' + meaning + "(?=[?.!])"),
+                            ' <FONT COLOR="#ef9a9a">' + meaning + '</FONT>', to_example[0])
+        to_example = to_example.replace(" " + meaning + " ",
+                                        ' <FONT COLOR="#ef9a9a">' + meaning + '</FONT> ').replace(
+            meaning.capitalize() + " ", '<FONT COLOR="#ef9a9a">' + meaning.capitalize() + '</FONT> ')
+
+        from_example = re.sub(re.escape(' ' + translation_from_word + "(?=[?.!])"),
+                              ' <FONT COLOR="#ef9a9a">' + translation_from_word + '</FONT>', from_example)
+        from_example = from_example.replace(" " + translation_from_word + " ",
+                                            ' <FONT COLOR="#ef9a9a">' + translation_from_word + '</FONT> ').replace(
+            translation_from_word.capitalize() + " ",
+            '<FONT COLOR="#ef9a9a">' + translation_from_word.capitalize() + '</FONT> ')
+    valid_translation = (meaning != 'translation unavailable') and (
+            meaning != '-')
+    return from_example, meaning, to_example, translation_from_word, valid_translation
 
 
 class WR:
@@ -23,40 +48,44 @@ class WR:
             res2 = []
         num = 0
         for i in res:
+            from_example, meaning, to_example, translation_from_word, valid_translation = extract(i)
             # word in translations that got fetched included?
-            if i['from_word']['source'] == word or word + ',' in i['from_word']['source']:
+            if translation_from_word == word or word + ',' in translation_from_word:
                 num += 1
-                valid_translation = (i['to_word'][0]['meaning'] != 'translation unavailable') and (
-                        i['to_word'][0]['meaning'] != '-')
                 # filter for "-" or 'translation unavailable' as an word_trans result
                 if valid_translation:
-                    card.add_trans_words(i['to_word'][0]['meaning'])
+                    card.add_trans_words(meaning)
                 if num < 3:
-                    card.add_q_sentences(i['from_example'])
-                if i['to_example'] and valid_translation:
-                    card.add_a_sentences(i['to_word'][0]['meaning'], i['from_example'], i['to_example'][0])
+                    card.add_q_sentences(from_example)
+                if to_example and from_example and valid_translation:
+                    card.add_a_sentences(meaning,
+                                         from_example,
+                                         to_example)
         for i in res2:
+            from_example, meaning, to_example, translation_from_word, valid_translation = extract(i)
             if num < 3:
-                card.add_q_sentences(i['from_example'])
+                card.add_q_sentences(from_example)
                 num += 1
-            if i['to_example']:
-                card.add_a_sentences(i['to_word'][0]['meaning'], i['from_example'], i['to_example'][0],
-                                     i['from_word']['source'])
+            if to_example and from_example and valid_translation:
+                card.add_a_sentences(meaning,
+                                     from_example,
+                                     to_example, translation_from_word)
         return True
 
-    def add_uncommon_words(self, word: str, card: AnkiCard):
-        num = 0
-        res = self.wr.translate(word)["translations"][0]['entries']
-        for i in res:
-            valid_translation = (i['to_word'][0]['meaning'] != 'translation unavailable') and (
-                    i['to_word'][0]['meaning'] != '-')
-            # filter for "-" or 'translation unavailable' as an word_trans result
-            if valid_translation:
-                card.add_trans_words(i['to_word'][0]['meaning'])
-            if num < 3:
-                card.add_q_sentences(i['from_example'])
-            if i['to_example'] and valid_translation:
-                card.add_a_sentences(i['to_word'][0]['meaning'], i['from_example'], i['to_example'][0])
+    # def add_uncommon_words(self, word: str, card: AnkiCard):
+    #     num = 0
+    #     res = self.wr.translate(word)["translations"][0]['entries']
+    #     for i in res:
+    #         valid_translation = (i['to_word'][0]['meaning'] != 'translation unavailable') and (
+    #                 i['to_word'][0]['meaning'] != '-')
+    #         # filter for "-" or 'translation unavailable' as an word_trans result
+    #         if valid_translation:
+    #             card.add_trans_words(i['to_word'][0]['meaning'])
+    #         if num < 3:
+    #             card.add_q_sentences(i['from_example'].replace(word,
+    #                                                            '<FONT COLOR="#ef9a9a">' + word + '</FONT>'))
+    #         if i['to_example'] and valid_translation:
+    #             card.add_a_sentences(i['to_word'][0]['meaning'], i['from_example'], i['to_example'][0])
 
     # maybe add more sentences
     def add_sentences_only(self, word: str, card: AnkiCard):
@@ -72,25 +101,19 @@ class WR:
         except IndexError:
             res2 = []
         for i in res:
-            meaning = i['to_word'][0]['meaning']
-            to_example = i['to_example']
-            from_example = i['from_example']
+            from_example, meaning, to_example, translation_from_word, valid_translation = extract(i)
             # word in translations that got fetched included?
             if i['from_word']['source'] == word or word + ',' in i['from_word']['source']:
-                valid_translation = (meaning != 'translation unavailable') and (
-                        meaning != '-')
+                # example sentences?
                 if to_example and from_example and valid_translation:
                     card.add_a_sentences(meaning,
-                                         from_example.replace(word, '<FONT COLOR="#ef9a9a">' + word + '</FONT>'),
-                                         to_example[0].replace(meaning, '<FONT COLOR="#ef9a9a">' + meaning + '</FONT>'))
+                                         from_example,
+                                         to_example)
         for i in res2:
-            meaning = i['to_word'][0]['meaning']
-            to_example = i['to_example']
-            from_example = i['from_example']
-            from_meaning = i['from_word']['source']
-            if to_example and from_example:
-                card.add_a_sentences(meaning, from_example.replace(from_meaning,
-                                                                   '<FONT COLOR="#ef9a9a">' + from_meaning + '</FONT>'),
-                                     to_example[0].replace(meaning, '<FONT COLOR="#ef9a9a">' + meaning + '</FONT>'),
-                                     from_meaning)
+            from_example, meaning, to_example, translation_from_word, valid_translation = extract(i)
+
+            if to_example and from_example and valid_translation:
+                card.add_a_sentences(meaning,
+                                     from_example,
+                                     to_example)
         return True
