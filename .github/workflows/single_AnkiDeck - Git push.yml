@@ -6,8 +6,12 @@ name: single file, Git push
 on:
   workflow_dispatch:
     inputs:
-      file:
-        description: 'Path and name of your .txt file (eg. "path/path2/name" or "path/path2/name.txt"'
+      path:
+        description: 'Path of your .txt file with backslash at end (eg. "path/path2/" not "path/path2"'
+        required: true
+        type: string
+      textfilename:
+        description: 'Name of your .txt file'
         required: true
         type: string
       from:
@@ -44,12 +48,12 @@ jobs:
         pip install -r requirements.txt
     - name: build Anki Deck
       run: |
-        python main.py  ${{ github.event.inputs.file }} ${{ github.event.inputs.from }} ${{ github.event.inputs.to }} ${{ github.event.inputs.numberOfWords }}
+        python main.py  ${{ github.event.inputs.path }}${{ github.event.inputs.textfilename }} ${{ github.event.inputs.from }} ${{ github.event.inputs.to }} ${{ github.event.inputs.numberOfWords }}
     - name: Commit files
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git add -A
+        git add CreatedDecks/${{ github.event.inputs.path }}
         git commit -m "Uploaded ${{ github.event.inputs.file }}" -a
     - name: Push changes
       uses: ad-m/github-push-action@master
