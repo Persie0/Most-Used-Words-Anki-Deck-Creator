@@ -41,17 +41,14 @@ call it secret `ADD_NEW` and paste the before created access token; file will be
 2. upload your .txt files from which you want to create Anki Deck(s) to the forked repo; I recommend to upload into the uploads directory
 3. follow this 
 https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-token=
-and create an access token with "repo" and "workflow" ticked (first 2)
+and create an access token with admin:org, admin:repo_hook, delete:packages, gist, repo, workflow, write:packages ticked
 4. copy the created token
 5. follow this (on your forked repo)
 https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository=
-call it secret `WORKFLOW_TOKEN` and paste the before created access token 
+call it secret `ADD_NEW` and paste the before created access token 
 6. go to the GitHub Actions tab of your forked project
 7. go to "Create workflow file" and type in the parameters
-8. wait some time until this action is finished
-9. then go to the action "`directory` - GW" (directory you entered at 7.)
-10. and run it
-11. after more or less time depending on how many word you want to translate, the workflow should upload your Ankidecks
+8. after more or less time depending on how many word you want to translate, the workflow should upload your Ankidecks to your github repo
 
 # Language Codes
 Generally the ISO 639-1 (alpha 2) format (like website top domain; eg: "en" for English, "de" for German,...) should be used, others could be supported too.
