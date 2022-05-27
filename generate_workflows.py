@@ -115,7 +115,7 @@ if __name__ == '__main__':
             'run': '\npython main.py ' + i + ' ' + fromLang + ' ' + toLang + ' ' + str(numberOfWords)+'''\n
                     git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"\n
                     git config --local user.name "github-actions[bot]"\n
-                    git add CreatedDecks/'''+i+
+                    git add CreatedDecks'''
                     "\ngit rm "+'.github/workflows/' + i.replace("/", ".") + '.yml'+
                     '''\ngit commit -m "Uploaded Deck" -a\n
                     git pull -r
