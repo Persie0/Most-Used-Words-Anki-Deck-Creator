@@ -41,11 +41,11 @@ if __name__ == '__main__':
     if push_to_git:
         content = {
             'on': {
-                'workflow_dispatch': {
+                'push': {
+                    'branches': ["master"]
                 }
             },
             'permissions': {
-                'contents': 'read'
             },
             'jobs': {
                 'build': {
@@ -107,13 +107,22 @@ if __name__ == '__main__':
                 }
             }
         }
+    content2 = content
     for i in files:
-        # .replace: fix as \ in created workflow file just disappears - so made 2
+        content = content2
         new = {
             'name': 'build Anki Deck ' + ntpath.basename(i),
-            'run': 'python main.py ' + i + ' ' + fromLang + ' ' + toLang + ' ' + str(numberOfWords)
+            'run': '|\npython main.py ' + i + ' ' + fromLang + ' ' + toLang + ' ' + str(numberOfWords)+'''
+                    git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"\n
+                    git config --local user.name "github-actions[bot]"\n
+                    git add CreatedDecks/'''+i+
+                    "\ngit rm "+'.github/workflows/' + i.replace("/", ".") + '.yml'+
+                    '''\ngit commit -m "Uploaded Deck" -a\n
+                    git pull -r
+            '''
         }
         content["jobs"]["build"]["steps"].insert(3, new)
-        content['name'] = '"' + directory + '" - GW'
-    with open('.github/workflows/' + directory.replace("/", ".") + '.yml', 'w') as f:
-        yaml.dump(content, f)
+        content['name'] = '"' + i + '" - GW'
+        with open('.github/workflows/' + i.replace("/", ".") + '.yml', 'w') as f:
+            yaml.dump(content, f)
+            f.close()
