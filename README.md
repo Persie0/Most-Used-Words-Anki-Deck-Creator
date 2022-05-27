@@ -12,7 +12,6 @@ With this python script you can create an anki deck from a given list with words
 - Add Audio to (Reverso class and) Anki Cards
 - Add the Implements
 - add monolingual mode (with dictionaries) for advanced vocabulary
-- (Check if input is an actually existing text file)
 
 # How to use
 All of the words you want to translate have to be in a text file with one word per line!
@@ -30,8 +29,10 @@ https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-en
 call it secret `ADD_NEW` and paste the before created access token; file will be pushed to your repo
 
  3.2 - "Artifact" - no actions needed; file will be uploaded under Actions
+ 
 4. and type in the parameters 
-5. after more or less time depending on how many word you want to translate, the workflow should upload your Ankidecks
+
+6. after more or less time depending on how many word you want to translate, the workflow should upload your Ankidecks
 
 
 
