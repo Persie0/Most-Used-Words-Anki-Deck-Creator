@@ -16,7 +16,7 @@ jobs:
 
         '
     - name: build Anki Deck most-common-spanish-words-v5.txt
-      run: "|\npython main.py lists/es/most-common-spanish-words-v5.txt es en 11000\n\
+      run: "\npython main.py lists/es/most-common-spanish-words-v5.txt es en 10\n\n\
         \                    git config --local user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\
         \n\n                    git config --local user.name \"github-actions[bot]\"\
         \n\n                    git add CreatedDecks/lists/es/most-common-spanish-words-v5.txt\n\

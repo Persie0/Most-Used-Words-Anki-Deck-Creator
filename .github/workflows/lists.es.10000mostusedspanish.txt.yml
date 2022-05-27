@@ -16,28 +16,28 @@ jobs:
 
         '
     - name: build Anki Deck 10000mostusedspanish.txt
-      run: "|\npython main.py lists/es/10000mostusedspanish.txt es en 11000\n    \
-        \                git config --local user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\
+      run: "\npython main.py lists/es/10000mostusedspanish.txt es en 10\n\n      \
+        \              git config --local user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\
         \n\n                    git config --local user.name \"github-actions[bot]\"\
         \n\n                    git add CreatedDecks/lists/es/10000mostusedspanish.txt\n\
         git rm .github/workflows/lists.es.10000mostusedspanish.txt.yml\ngit commit\
         \ -m \"Uploaded Deck\" -a\n\n                    git pull -r\n            "
     - name: build Anki Deck es_50k.txt
-      run: "|\npython main.py lists/es/es_50k.txt es en 11000\n                  \
-        \  git config --local user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\
+      run: "\npython main.py lists/es/es_50k.txt es en 10\n\n                    git\
+        \ config --local user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\
         \n\n                    git config --local user.name \"github-actions[bot]\"\
         \n\n                    git add CreatedDecks/lists/es/es_50k.txt\ngit rm .github/workflows/lists.es.es_50k.txt.yml\n\
         git commit -m \"Uploaded Deck\" -a\n\n                    git pull -r\n  \
         \          "
     - name: build Anki Deck most-common-spanish-words.txt
-      run: "|\npython main.py lists/es/most-common-spanish-words.txt es en 11000\n\
-        \                    git config --local user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\
+      run: "\npython main.py lists/es/most-common-spanish-words.txt es en 10\n\n \
+        \                   git config --local user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\
         \n\n                    git config --local user.name \"github-actions[bot]\"\
         \n\n                    git add CreatedDecks/lists/es/most-common-spanish-words.txt\n\
         git rm .github/workflows/lists.es.most-common-spanish-words.txt.yml\ngit commit\
         \ -m \"Uploaded Deck\" -a\n\n                    git pull -r\n            "
     - name: build Anki Deck most-common-spanish-words-v5.txt
-      run: "|\npython main.py lists/es/most-common-spanish-words-v5.txt es en 11000\n\
+      run: "\npython main.py lists/es/most-common-spanish-words-v5.txt es en 10\n\n\
         \                    git config --local user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\
         \n\n                    git config --local user.name \"github-actions[bot]\"\
         \n\n                    git add CreatedDecks/lists/es/most-common-spanish-words-v5.txt\n\
