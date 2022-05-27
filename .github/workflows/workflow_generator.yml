@@ -31,8 +31,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  issues: read
-  packages: none
   actions: write
 
 
@@ -63,7 +61,7 @@ jobs:
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git add .github/workflows
-        git commit -m "Updated via Actions" -a
+        git commit -m "Creating Decks from Directory" -a
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:

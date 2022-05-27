@@ -44,8 +44,6 @@ if __name__ == '__main__':
                 'branches': ["master"]
             }
         },
-        'permissions': {
-        },
         'jobs': {
             'build': {
                 'runs-on': 'ubuntu-latest',
@@ -74,19 +72,20 @@ if __name__ == '__main__':
     content2 = content
     for i in files:
         content = content2
+        print(i)
         new = {
             'name': 'build Anki Deck ' + ntpath.basename(i),
             'run': '\npython main.py ' + i + ' ' + fromLang + ' ' + toLang + ' ' + str(numberOfWords)+'''\n
                     git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"\n
                     git config --local user.name "github-actions[bot]"\n
                     git add CreatedDecks'''
-                                                                                                      "\ngit rm "+'.github/workflows/' + i.replace("/", ".") + '.yml'+
-                   '''\ngit commit -m "Uploaded Deck" -a\n
-                   git pull -r
+                    "\ngit rm "+'.github/workflows/' + i.replace("/", ".") + '.yml'+
+                   '''\ngit commit -m "Uploaded Deck" -a
+                   \ngit pull -r
            '''
         }
         content["jobs"]["build"]["steps"].insert(3, new)
         content['name'] = '"' + i + '" - GW'
-        with open('.github/workflows/' + i.replace("/", ".") + '.yml', 'w') as f:
-            yaml.dump(content, f)
-            f.close()
+        f=open('.github/workflows/' + i.replace("/", ".") + '.yml', 'w')
+        yaml.dump(content, f)
+        f.close()
