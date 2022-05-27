@@ -14,7 +14,7 @@ With this python script you can create an anki deck from a given list with words
 - add monolingual mode (with dictionaries) for advanced vocabulary
 
 # How to use
-All of the words you want to translate have to be in a text file with one word per line!
+All of the words you want to translate have to be in a text file with one word per line or 2 word seperated by "|".
 <h3>Create one Ankideck (easier, shorter)</h3>
 
 1. Fork this project
@@ -57,7 +57,7 @@ All language codes (I think):
 https://datahub.io/core/language-codes/r/0.html
 
 # ! For Devs
-If you run the generate_workflows.py on Windows and push the workflows it won't work. This is due the different directory seperators on Windows and Linux. A possible solotion would be to set the `runs-on:` part from `ubuntu-latest` to `windows-latest`.
+There are problems if you run it on Windows due the different directory seperators on Windows and Linux. 
 
 
 # Implement:
