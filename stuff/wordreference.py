@@ -1,5 +1,6 @@
 import re
 
+import requests.exceptions
 from wrpy import WordReference
 from stuff.ankicard import AnkiCard
 
@@ -36,16 +37,22 @@ class WR:
 
     def add_translations(self, word: str, card: AnkiCard):
         res = dict()
-        try:
-            # most used translation
-            res = self.wr.translate(word)["translations"][0]['entries']
-            # uncommon translations
-            res2 = self.wr.translate(word)["translations"][2]['entries']
-            # didnt find word on WR
-        except NameError:
-            return False
-        except IndexError:
-            res2 = []
+        for i in range(0, 3):
+            try:
+                # most used translation
+                res = self.wr.translate(word)["translations"][0]['entries']
+                # uncommon translations
+                res2 = self.wr.translate(word)["translations"][2]['entries']
+                # didnt find word on WR
+            except NameError:
+                return False
+            except IndexError:
+                res2 = []
+            except Exception as e:
+                if i == 3:
+                    print(repr(word) + " not translated: ")
+                    print(e)
+                    return False
         num = 0
         for i in res:
             from_example, meaning, to_example, translation_from_word, valid_translation = extract(i)
