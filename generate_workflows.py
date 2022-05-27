@@ -70,6 +70,7 @@ if __name__ == '__main__':
         }
     }
     content2 = content
+    content["jobs"]["build"]["steps"].insert(3, {})
     for i in files:
         content = content2
         print(i)
@@ -84,7 +85,7 @@ if __name__ == '__main__':
                    \ngit pull -r
            '''
         }
-        content["jobs"]["build"]["steps"].insert(3, new)
+        content["jobs"]["build"]["steps"][3]=new
         content['name'] = '"' + i + '" - GW'
         f=open('.github/workflows/' + i.replace("/", ".") + '.yml', 'w')
         yaml.dump(content, f)
