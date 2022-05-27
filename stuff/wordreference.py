@@ -1,7 +1,7 @@
 import re
 
-import requests.exceptions
 from wrpy import WordReference
+
 from stuff.ankicard import AnkiCard
 
 
@@ -37,6 +37,7 @@ class WR:
 
     def add_translations(self, word: str, card: AnkiCard):
         res = dict()
+        res2=dict()
         for i in range(0, 3):
             try:
                 # most used translation
