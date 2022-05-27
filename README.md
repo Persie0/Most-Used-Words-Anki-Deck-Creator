@@ -68,3 +68,5 @@ If you run the generate_workflows.py on Windows and push the workflows it won't 
 <h4>Translation:</h4>
 - https://pypi.org/project/zdict/ -> https://github.com/zdict/zdict/tree/6cd5528a49ccec56e243f47b8ab6372bcf6c4a79/zdict/tests/dictionaries
 - maybe: https://pypi.org/project/translators/
+- https://pypi.org/project/word2word/
+- https://pypi.org/project/wiktionaryparser/
