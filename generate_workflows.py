@@ -35,78 +35,42 @@ if __name__ == '__main__':
     toLang = sys.argv[3]
     directory = sys.argv[1]
     numberOfWords = int(sys.argv[4])
-    push_to_git = bool(sys.argv[5])
+    # push_to_git = bool(sys.argv[5])
     files = getListOfFiles(directory)
     print(getListOfFiles(directory))
-    if push_to_git:
-        content = {
-            'on': {
-                'push': {
-                    'branches': ["master"]
-                }
-            },
-            'permissions': {
-            },
-            'jobs': {
-                'build': {
-                    'runs-on': 'ubuntu-latest',
-                    'steps': [{
-                        'uses': 'actions/checkout@v3'
-                    }, {
-                        'name': 'Set up Python 3.10',
-                        'uses': 'actions/setup-python@v3',
-                        'with': {
-                            'python-version': '3.10'
-                        }
-                    }, {
-                        'name': 'Install dependencies',
-                        'run': 'python -m pip install --upgrade pip\npip install wheel\npip install -r requirements.txt\n'
-                    }, {
-                        'name': 'Push changes',
-                        'uses': 'ad-m/github-push-action@master',
-                        'with': {
-                            'github_token': '${{ secrets.WORKFLOW_TOKEN }}',
-                            'branch': '${{ github.ref }}',
-                        }
-                    }]
-                }
+    content = {
+        'on': {
+            'push': {
+                'branches': ["master"]
+            }
+        },
+        'permissions': {
+        },
+        'jobs': {
+            'build': {
+                'runs-on': 'ubuntu-latest',
+                'steps': [{
+                    'uses': 'actions/checkout@v3'
+                }, {
+                    'name': 'Set up Python 3.10',
+                    'uses': 'actions/setup-python@v3',
+                    'with': {
+                        'python-version': '3.10'
+                    }
+                }, {
+                    'name': 'Install dependencies',
+                    'run': 'python -m pip install --upgrade pip\npip install wheel\npip install -r requirements.txt\n'
+                }, {
+                    'name': 'Push changes',
+                    'uses': 'ad-m/github-push-action@master',
+                    'with': {
+                        'github_token': '${{ secrets.ADD_NEW }}',
+                        'branch': '${{ github.ref }}',
+                    }
+                }]
             }
         }
-    else:
-        content = {
-            'on': {
-                'workflow_dispatch': {
-                }
-            },
-            'permissions': {
-                'contents': 'read'
-            },
-            'jobs': {
-                'build': {
-                    'runs-on': 'ubuntu-latest',
-                    'steps': [{
-                        'uses': 'actions/checkout@v3'
-                    }, {
-                        'name': 'Set up Python 3.10',
-                        'uses': 'actions/setup-python@v3',
-                        'with': {
-                            'python-version': '3.10'
-                        }
-                    }, {
-                        'name': 'Install dependencies',
-                        'run': 'python -m pip install --upgrade pip\npip install wheel\npip install -r requirements.txt\n'
-                    }, {
-                        'name': 'Upload Anki Decks',
-                        'uses': 'actions/upload-artifact@v3.0.0',
-                        'with': {
-                            'name': 'release',
-                            'path': 'CreatedDecks',
-                            'retention-days': 90
-                        }
-                    }]
-                }
-            }
-        }
+    }
     content2 = content
     for i in files:
         content = content2
@@ -116,10 +80,10 @@ if __name__ == '__main__':
                     git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"\n
                     git config --local user.name "github-actions[bot]"\n
                     git add CreatedDecks'''
-                    "\ngit rm "+'.github/workflows/' + i.replace("/", ".") + '.yml'+
-                    '''\ngit commit -m "Uploaded Deck" -a\n
-                    git pull -r
-            '''
+                                                                                                      "\ngit rm "+'.github/workflows/' + i.replace("/", ".") + '.yml'+
+                   '''\ngit commit -m "Uploaded Deck" -a\n
+                   git pull -r
+           '''
         }
         content["jobs"]["build"]["steps"].insert(3, new)
         content['name'] = '"' + i + '" - GW'
