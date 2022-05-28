@@ -12,10 +12,9 @@ With this python script you can create an anki deck from a given list with words
 - Add Audio to (Reverso class and) Anki Cards
 - Add the Implements
 - add monolingual mode (with dictionaries) for advanced vocabulary
-- (Check if input is an actually existing text file)
 
 # How to use
-All of the words you want to translate have to be in a text file with one word per line!
+All of the words you want to translate have to be in a text file with one word per line or 2 word seperated by "|".
 <h3>Create one Ankideck (easier, shorter)</h3>
 
 1. Fork this project
@@ -30,8 +29,10 @@ https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-en
 call it secret `ADD_NEW` and paste the before created access token; file will be pushed to your repo
 
  3.2 - "Artifact" - no actions needed; file will be uploaded under Actions
+ 
 4. and type in the parameters 
-5. after more or less time depending on how many word you want to translate, the workflow should upload your Ankidecks
+
+6. after more or less time depending on how many word you want to translate, the workflow should upload your Ankidecks
 
 
 
@@ -56,7 +57,7 @@ All language codes (I think):
 https://datahub.io/core/language-codes/r/0.html
 
 # ! For Devs
-If you run the generate_workflows.py on Windows and push the workflows it won't work. This is due the different directory seperators on Windows and Linux. A possible solotion would be to set the `runs-on:` part from `ubuntu-latest` to `windows-latest`.
+There are problems if you run it on Windows due the different directory seperators on Windows and Linux. 
 
 
 # Implement:
@@ -68,3 +69,5 @@ If you run the generate_workflows.py on Windows and push the workflows it won't 
 <h4>Translation:</h4>
 - https://pypi.org/project/zdict/ -> https://github.com/zdict/zdict/tree/6cd5528a49ccec56e243f47b8ab6372bcf6c4a79/zdict/tests/dictionaries
 - maybe: https://pypi.org/project/translators/
+- https://pypi.org/project/word2word/
+- https://pypi.org/project/wiktionaryparser/
