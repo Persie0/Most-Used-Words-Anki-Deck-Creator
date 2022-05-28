@@ -6,26 +6,28 @@ from stuff.ankicard import AnkiCard
 
 
 def extract(i):
-    meaning = i['to_word'][0]['meaning']
-    translation_from_word = i['from_word']['source']
+    word_translation = i['from_word']['source']
+    print(word_translation)
+    given_word = i['to_word'][0]['meaning']
+    print(given_word)
     to_example = i['to_example']
     from_example = i['from_example']
     if to_example and from_example:
-        to_example = re.sub(re.escape(' ' + meaning + "(?=[?.!])"),
-                            ' <FONT COLOR="#ef9a9a">' + meaning + '</FONT>', to_example[0])
-        to_example = to_example.replace(" " + meaning + " ",
-                                        ' <FONT COLOR="#ef9a9a">' + meaning + '</FONT> ').replace(
-            meaning.capitalize() + " ", '<FONT COLOR="#ef9a9a">' + meaning.capitalize() + '</FONT> ')
+        to_example = re.sub(re.escape(' ' + word_translation + "(?=[?.!])"),
+                            ' <FONT COLOR="#ef9a9a">' + word_translation + '</FONT>', to_example[0])
+        to_example = to_example.replace(" " + word_translation + " ",
+                                        ' <FONT COLOR="#ef9a9a">' + word_translation + '</FONT> ').replace(
+            word_translation.capitalize() + " ", '<FONT COLOR="#ef9a9a">' + word_translation.capitalize() + '</FONT> ')
 
-        from_example = re.sub(re.escape(' ' + translation_from_word + "(?=[?.!])"),
-                              ' <FONT COLOR="#ef9a9a">' + translation_from_word + '</FONT>', from_example)
-        from_example = from_example.replace(" " + translation_from_word + " ",
-                                            ' <FONT COLOR="#ef9a9a">' + translation_from_word + '</FONT> ').replace(
-            translation_from_word.capitalize() + " ",
-            '<FONT COLOR="#ef9a9a">' + translation_from_word.capitalize() + '</FONT> ')
-    valid_translation = (meaning != 'translation unavailable') and (
-            meaning != '-')
-    return from_example, meaning, to_example, translation_from_word, valid_translation
+        from_example = re.sub(re.escape(' ' + given_word + "(?=[?.!])"),
+                              ' <FONT COLOR="#ef9a9a">' + given_word + '</FONT>', from_example)
+        from_example = from_example.replace(" " + given_word + " ",
+                                            ' <FONT COLOR="#ef9a9a">' + given_word + '</FONT> ').replace(
+            given_word.capitalize() + " ",
+            '<FONT COLOR="#ef9a9a">' + given_word.capitalize() + '</FONT> ')
+    valid_translation = (word_translation != 'translation unavailable') and (
+            word_translation != '-')
+    return from_example, word_translation, to_example, given_word, valid_translation
 
 
 class WR:

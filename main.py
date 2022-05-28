@@ -40,6 +40,7 @@ if __name__ == '__main__':
         # to also see \n or similar
         # print(repr(word))
         line = line.replace("\n", "").replace("\r", "")
+        line="butch"
         # if there are multiple word in a line seperated by "|"
         words = line.split("|")
         for word in words:
@@ -47,6 +48,7 @@ if __name__ == '__main__':
 
             if trl.add_translations(word, ankicard):
                 if len(ankicard.trans_words) != 0:
+                    print("b")
                     wr.add_sentences_only(word, ankicard)
 
             if len(ankicard.trans_words) == 0:
@@ -60,8 +62,8 @@ if __name__ == '__main__':
                 ankideck.add_not_translated(word)
                 continue
             else:
+                str(ankicard.trans_words)
                 count += 1
-
             ankicard.convert()
             ankideck.addnote(count, word, ankicard.q_sentences_str, ankicard.trans_str, ankicard.a_sentences_str)
         # print(count)
