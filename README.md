@@ -57,7 +57,7 @@ All language codes (I think):
 https://datahub.io/core/language-codes/r/0.html
 
 # ! For Devs
-There are problems if you run it on Windows due the different directory seperators on Windows and Linux. 
+There are problems if you run it on Windows due the different directory separators on Windows and Linux. 
 
 
 # Implement:
@@ -69,5 +69,3 @@ There are problems if you run it on Windows due the different directory seperato
 <h4>Translation:</h4>
 - https://pypi.org/project/zdict/ -> https://github.com/zdict/zdict/tree/6cd5528a49ccec56e243f47b8ab6372bcf6c4a79/zdict/tests/dictionaries
 - maybe: https://pypi.org/project/translators/
-- https://pypi.org/project/word2word/
-- https://pypi.org/project/wiktionaryparser/
