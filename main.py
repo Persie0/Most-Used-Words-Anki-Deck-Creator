@@ -9,6 +9,7 @@ from stuff.wordreference import WR
 from stuff.trl import Transl
 from stuff.wiktionary import WiktionaryResult
 
+
 # lists\es\most-common-spanish-words.txt es en 10
 
 def init_param():
@@ -30,7 +31,7 @@ if __name__ == '__main__':
     start, fromLang, toLang, filename, path, numberOfWords, ankideck, count \
         = 0, "", "", "", "", 0, AnkiDeck("", ""), 0
     init_param()
-    wikt=WiktionaryResult()
+    wikt = WiktionaryResult()
     wr = WR(fromLang, toLang)
     trl = Transl(fromLang, toLang)
     trl_reverse = Transl(toLang, fromLang)
@@ -54,12 +55,24 @@ if __name__ == '__main__':
             # eg translating from es -> en
             # word is "butch", check if word exists in en because wr cant distinguish if result is in en&es
             if len(ankicard.trans_words) == 0:
+                if fromLang == "es" and toLang == "en":
+                    Palabras(word).add_translations(ankicard)
+                    if len(ankicard.trans_words) != 0:
+                        ankicard = AnkiCard(count, word)
+                        wr.add_translations(word, ankicard)
+                    else:
+                        continue
+
+            if len(ankicard.trans_words) == 0:
+                if fromLang == "es" and toLang == "en":
+                    Palabras(word).add_translations(ankicard)
+
+            if len(ankicard.trans_words) == 0:
                 if trl_reverse.add_translations(word, ankicard):
                     if len(ankicard.trans_words) != 0:
                         ankicard = AnkiCard(count, word)
-                        if fromLang == "es" and toLang == "en":
-                            Palabras(word).add_translations(ankicard)
                     else:
+                        ankicard = AnkiCard(count, word)
                         wr.add_translations(word, ankicard)
 
             if len(ankicard.trans_words) == 0:
@@ -78,6 +91,6 @@ if __name__ == '__main__':
         passed = end - start
         # run for 5h 50min max, to leave time for ankideck.create()
         # print(passed)
-        if passed > (60 * 60 * 5.834):
+        if passed > (60 * 60 * 5.89):
             break
     ankideck.create()
