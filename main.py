@@ -61,6 +61,7 @@ if __name__ == '__main__':
                         ankicard = AnkiCard(count, word)
                         wr.add_translations(word, ankicard)
                     else:
+                        ankideck.add_not_translated(word)
                         continue
 
             if len(ankicard.trans_words) == 0:
