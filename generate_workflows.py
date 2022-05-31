@@ -81,7 +81,7 @@ if __name__ == '__main__':
                     git config --local user.name "github-actions[bot]"\n
                     git add CreatedDecks'''
                     "\ngit rm "+'.github/workflows/' + i.replace("/", ".") + '.yml'+
-                   '''\ngit commit -m "Uploaded Deck" -a
+                   '''\ngit commit -m "Uploaded Deck '''+i.replace("/", ".")+'''" -a
                    \ngit pull -r
            '''
         }
