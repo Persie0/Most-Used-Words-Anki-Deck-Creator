@@ -16,12 +16,12 @@ jobs:
 
         '
     - name: build Anki Deck most-common-spanish-words.txt
-      run: "\npython main.py lists/es/most-common-spanish-words.txt es en 11000\n\n\
+      run: "\npython main.py lists/es/most-common-spanish-words.txt es en 10000\n\n\
         \                    git config --local user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\
         \n\n                    git config --local user.name \"github-actions[bot]\"\
         \n\n                    git add CreatedDecks\ngit rm .github/workflows/lists.es.most-common-spanish-words.txt.yml\n\
-        git commit -m \"Uploaded Deck\" -a\n                   \ngit pull -r\n   \
-        \        "
+        git commit -m \"Uploaded Deck lists.es.most-common-spanish-words.txt\" -a\n\
+        \                   \ngit pull -r\n           "
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:

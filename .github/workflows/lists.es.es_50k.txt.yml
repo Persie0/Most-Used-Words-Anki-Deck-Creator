@@ -16,12 +16,12 @@ jobs:
 
         '
     - name: build Anki Deck es_50k.txt
-      run: "\npython main.py lists/es/es_50k.txt es en 11000\n\n                 \
+      run: "\npython main.py lists/es/es_50k.txt es en 10000\n\n                 \
         \   git config --local user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\
         \n\n                    git config --local user.name \"github-actions[bot]\"\
         \n\n                    git add CreatedDecks\ngit rm .github/workflows/lists.es.es_50k.txt.yml\n\
-        git commit -m \"Uploaded Deck\" -a\n                   \ngit pull -r\n   \
-        \        "
+        git commit -m \"Uploaded Deck lists.es.es_50k.txt\" -a\n                 \
+        \  \ngit pull -r\n           "
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
