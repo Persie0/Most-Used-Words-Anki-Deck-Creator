@@ -12,17 +12,17 @@ def extract(i):
     from_example = i['from_example']
     if to_example and from_example:
         to_example = re.sub(re.escape(' ' + meaning + "(?=[?.!])"),
-                            ' <FONT COLOR="#ef9a9a">' + meaning + '</FONT>', to_example[0])
+                            ' <FONT COLOR="#106565">' + meaning + '</FONT>', to_example[0])
         to_example = to_example.replace(" " + meaning + " ",
-                                        ' <FONT COLOR="#ef9a9a">' + meaning + '</FONT> ').replace(
-            meaning.capitalize() + " ", '<FONT COLOR="#ef9a9a">' + meaning.capitalize() + '</FONT> ')
+                                        ' <FONT COLOR="#106565">' + meaning + '</FONT> ').replace(
+            meaning.capitalize() + " ", '<FONT COLOR="#106565">' + meaning.capitalize() + '</FONT> ')
 
         from_example = re.sub(re.escape(' ' + translation_from_word + "(?=[?.!])"),
-                              ' <FONT COLOR="#ef9a9a">' + translation_from_word + '</FONT>', from_example)
+                              ' <FONT COLOR="#106565">' + translation_from_word + '</FONT>', from_example)
         from_example = from_example.replace(" " + translation_from_word + " ",
-                                            ' <FONT COLOR="#ef9a9a">' + translation_from_word + '</FONT> ').replace(
+                                            ' <FONT COLOR="#106565">' + translation_from_word + '</FONT> ').replace(
             translation_from_word.capitalize() + " ",
-            '<FONT COLOR="#ef9a9a">' + translation_from_word.capitalize() + '</FONT> ')
+            '<FONT COLOR="#106565">' + translation_from_word.capitalize() + '</FONT> ')
     valid_translation = (meaning != 'translation unavailable') and (
             meaning != '-')
     return from_example, meaning, to_example, translation_from_word, valid_translation
@@ -92,7 +92,7 @@ class WR:
     #             card.add_trans_words(i['to_word'][0]['meaning'])
     #         if num < 3:
     #             card.add_q_sentences(i['from_example'].replace(word,
-    #                                                            '<FONT COLOR="#ef9a9a">' + word + '</FONT>'))
+    #                                                            '<FONT COLOR="#106565">' + word + '</FONT>'))
     #         if i['to_example'] and valid_translation:
     #             card.add_a_sentences(i['to_word'][0]['meaning'], i['from_example'], i['to_example'][0])
 

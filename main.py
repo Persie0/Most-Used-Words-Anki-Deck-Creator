@@ -7,7 +7,7 @@ from stuff.ankideck import AnkiDeck
 from stuff.ankicard import AnkiCard
 from stuff.wordreference import WR
 from stuff.trl import Transl
-from stuff.wiktionary import WiktionaryResult
+from wiktionary_translate.wiktionary_translate import WiktionaryResult
 
 
 # lists\es\most-common-spanish-words.txt es en 10
@@ -17,7 +17,6 @@ def init_param():
     start = time.time()
     fromLang = sys.argv[2]
     toLang = sys.argv[3]
-    # fix as \ in created workflow file just disappears - so made 2
     path = sys.argv[1]
     filename = ntpath.basename(path)
     numberOfWords = int(sys.argv[4])
@@ -31,7 +30,6 @@ if __name__ == '__main__':
     start, fromLang, toLang, filename, path, numberOfWords, ankideck, count \
         = 0, "", "", "", "", 0, AnkiDeck("", ""), 0
     init_param()
-    wikt = WiktionaryResult()
     wr = WR(fromLang, toLang)
     trl = Transl(fromLang, toLang)
     trl_reverse = Transl(toLang, fromLang)
@@ -46,6 +44,11 @@ if __name__ == '__main__':
         # if there are multiple word in a line seperated by "|"
         words = line.split("|")
         for word in words:
+
+            wir = WiktionaryResult()
+            if wir.query(word=word, lang=fromLang):
+                print(wir.definitions)  # ['to eat']
+                print(wir.partOfSpeech)  # Verb
             ankicard = AnkiCard(count, word)
 
             if trl.add_translations(word, ankicard):
