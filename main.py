@@ -49,7 +49,7 @@ if __name__ == '__main__':
             # if wir.query(word=word, lang=fromLang):
             #     print(wir.definitions)  # ['to eat']
             #     print(wir.partOfSpeech)  # Verb
-            # ankicard = AnkiCard(count, word)
+            ankicard = AnkiCard(count, word)
 
             if trl.add_translations(word, ankicard):
                 if len(ankicard.trans_words) != 0:
