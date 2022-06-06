@@ -7,7 +7,7 @@ from stuff.ankideck import AnkiDeck
 from stuff.ankicard import AnkiCard
 from stuff.wordreference import WR
 from stuff.trl import Transl
-from wiktionary_translate.wiktionary_translate import WiktionaryResult
+# from wiktionary_translate.wiktionary_translate import WiktionaryResult
 
 
 # lists\es\most-common-spanish-words.txt es en 10
