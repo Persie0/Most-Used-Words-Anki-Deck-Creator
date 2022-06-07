@@ -7,7 +7,7 @@ from stuff.ankideck import AnkiDeck
 from stuff.ankicard import AnkiCard
 from stuff.wordreference import WR
 from stuff.trl import Transl
-from wiktionary_translate.wiktionary_translate import WiktionaryResult
+# from wiktionary_translate.wiktionary_translate import WiktionaryResult
 
 
 # lists\es\most-common-spanish-words.txt es en 10
@@ -49,7 +49,7 @@ if __name__ == '__main__':
             # if wir.query(word=word, lang=fromLang):
             #     print(wir.definitions)  # ['to eat']
             #     print(wir.partOfSpeech)  # Verb
-            # ankicard = AnkiCard(count, word)
+            ankicard = AnkiCard(count, word)
 
             if trl.add_translations(word, ankicard):
                 if len(ankicard.trans_words) != 0:
