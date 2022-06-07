@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       directory:
-        description: 'Which directory should be used'
+        description: 'Which directory should be used e.g.: lists/es/'
         required: true
         type: string
       from:
