@@ -15,7 +15,7 @@ With this python script you can create an anki deck from a given list with words
 
 # How to use
 All of the words you want to translate have to be in a text file with one word per line or 2 word seperated by "|".
-<h3>Create one Ankideck (easier, shorter)</h3>
+<h3>Create one Ankideck</h3>
 
 1. Fork this project
 2. upload your .txt file from which you want to create an Ankideck to the forked repo
@@ -36,10 +36,10 @@ call it secret `ADD_NEW` and paste the before created access token; file will be
 
 
 
-<h3>Create multiple Ankidecks at once (harder, longer)</h3>
+<h3>Create multiple Ankidecks at once</h3>
 
 1. Fork this project
-2. upload your .txt files from which you want to create Anki Deck(s) to the forked repo; I recommend to upload into the uploads directory
+2. upload your .txt files from which you want to create Anki Deck(s) to the forked repo
 3. follow this 
 https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-token=
 and create an access token with admin:org, admin:repo_hook, delete:packages, gist, repo, workflow, write:packages ticked
@@ -48,7 +48,7 @@ and create an access token with admin:org, admin:repo_hook, delete:packages, gis
 https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository=
 call it secret `ADD_NEW` and paste the before created access token 
 6. go to the GitHub Actions tab of your forked project
-7. go to "Create workflow file" and type in the parameters
+7. go to "Create Decks from directory" and type in the parameters
 8. after more or less time depending on how many word you want to translate, the workflow should upload your Ankidecks to your github repo
 
 # Language Codes
