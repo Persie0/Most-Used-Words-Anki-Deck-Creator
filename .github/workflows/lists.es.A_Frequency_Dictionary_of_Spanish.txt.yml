@@ -15,19 +15,19 @@ jobs:
         pip install -r requirements.txt
 
         '
-    - name: build Anki Deck 10000mostusedspanish.txt
-      run: "\npython main.py lists/es/10000mostusedspanish.txt es en 15000\n\n   \
-        \                 git config --local user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\
+    - name: build Anki Deck A_Frequency_Dictionary_of_Spanish.txt
+      run: "\npython main.py lists/es/A_Frequency_Dictionary_of_Spanish.txt es en\
+        \ 15000\n\n                    git config --local user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\
         \n\n                    git config --local user.name \"github-actions[bot]\"\
-        \n\n                    git add CreatedDecks\ngit rm .github/workflows/lists.es.10000mostusedspanish.txt.yml\n\
-        git commit -m \"Uploaded Deck lists.es.10000mostusedspanish.txt\" -a\n   \
-        \                \ngit pull -r\n           "
+        \n\n                    git add CreatedDecks\ngit rm .github/workflows/lists.es.A_Frequency_Dictionary_of_Spanish.txt.yml\n\
+        git commit -m \"Uploaded Deck lists.es.A_Frequency_Dictionary_of_Spanish.txt\"\
+        \ -a\n                   \ngit pull -r\n           "
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
         branch: ${{ github.ref }}
         github_token: ${{ secrets.ADD_NEW }}
-name: '"lists/es/10000mostusedspanish.txt" - GW'
+name: '"lists/es/A_Frequency_Dictionary_of_Spanish.txt" - GW'
 'on':
   push:
     branches:
