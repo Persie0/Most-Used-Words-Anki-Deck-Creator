@@ -29,7 +29,7 @@ class AnkiDeck:
             ],
             templates=[
                 {
-                    'name': 'Perzi Template',
+                    'name': 'Persie0 Template',
                     'qfmt': '''{{Question}}<br>{{#Question sentences}}
                             <span class="alts">{{Question sentences}}</span><script>
                             function showExamplesTable(){
