@@ -93,8 +93,8 @@ if __name__ == '__main__':
                 break
         end = time.time()
         passed = end - start
-        # run for 5h 50min max, to leave time for ankideck.create()
+        # run for 5h 59min 20s max, to leave time for ankideck.create()
         # print(passed)
-        if passed > (60 * 60 * 5.89):
+        if passed > (60 * 60 * 5.989):
             break
     ankideck.create()
